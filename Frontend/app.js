@@ -1,6 +1,6 @@
 /* =====================================================
    MEDTRACK
-   LOGIN + FRONTEND
+   LOGIN + GERÄTEORTUNG
 ===================================================== */
 
 
@@ -8,22 +8,40 @@
    BENUTZER
 ===================================================== */
 
-const LOGIN_USERNAME = "admin";
-const LOGIN_PASSWORD = "medtrack";
+/*
+    HIER kannst du neue Benutzer hinzufügen.
 
-const LOGIN_USERNAME2 = "Alex";
-const LOGIN_PASSWORD2 = "Wöhrer";
+    username = Benutzername
+    password = Passwort
+*/
 
-const LOGIN_USERNAME3 = "Julian";
-const LOGIN_PASSWORD3 = "Tschiltsch";
+const users = [
 
-const LOGIN_USERNAME4 = "Leon";
-const LOGIN_PASSWORD4 = "Parzer";
+    {
+        username: "admin",
+        password: "medtrack"
+    },
 
+    {
+        username: "Alex",
+        password: "Wöhrer"
+    },
+
+    {
+        username: "Julian",
+        password: "Tschiltsch"
+    },
+
+    {
+        username: "Leon",
+        password: "Parzer"
+    }
+
+];
 
 
 /* =====================================================
-   TESTDATEN
+   TESTDATEN DER GERÄTE
 ===================================================== */
 
 const devices = [
@@ -77,7 +95,7 @@ const devices = [
 
 
 /* =====================================================
-   AKTUELLES GERÄT
+   AKTUELL AUSGEWÄHLTES GERÄT
 ===================================================== */
 
 let selectedDevice = 0;
@@ -89,15 +107,29 @@ let selectedDevice = 0;
 
 function login(event) {
 
+    /*
+        Verhindert, dass die Seite
+        beim Absenden neu geladen wird.
+    */
+
     event.preventDefault();
 
 
+    /*
+        Eingaben auslesen
+    */
+
     const username =
-        document.getElementById("username").value.trim();
+        document
+            .getElementById("username")
+            .value
+            .trim();
 
 
     const password =
-        document.getElementById("password").value;
+        document
+            .getElementById("password")
+            .value;
 
 
     const error =
@@ -105,13 +137,24 @@ function login(event) {
 
 
     /*
-        Login überprüfen
+        Benutzer suchen
     */
 
-    if (
-        username === LOGIN_USERNAME &&
-        password === LOGIN_PASSWORD
-    ) {
+    const user = users.find(function (user) {
+
+        return (
+            user.username === username &&
+            user.password === password
+        );
+
+    });
+
+
+    /*
+        Wenn Benutzer gefunden wurde
+    */
+
+    if (user) {
 
         /*
             Login speichern
@@ -124,14 +167,24 @@ function login(event) {
 
 
         /*
-            Login-Fehler löschen
+            Benutzer speichern
+        */
+
+        sessionStorage.setItem(
+            "medtrackUser",
+            user.username
+        );
+
+
+        /*
+            Fehlermeldung entfernen
         */
 
         error.innerText = "";
 
 
         /*
-            Login verstecken
+            Login ausblenden
         */
 
         document
@@ -141,7 +194,7 @@ function login(event) {
 
 
         /*
-            App anzeigen
+            MedTrack anzeigen
         */
 
         document
@@ -151,7 +204,7 @@ function login(event) {
 
 
         /*
-            Gerät laden
+            Gerät auswählen
         */
 
         selectDevice(0);
@@ -159,6 +212,10 @@ function login(event) {
     }
 
     else {
+
+        /*
+            Falsche Daten
+        */
 
         error.innerText =
             "Benutzername oder Passwort ist falsch.";
@@ -183,8 +240,13 @@ function logout() {
     );
 
 
+    sessionStorage.removeItem(
+        "medtrackUser"
+    );
+
+
     /*
-        App verstecken
+        MedTrack verstecken
     */
 
     document
@@ -194,7 +256,7 @@ function logout() {
 
 
     /*
-        Login anzeigen
+        Login wieder anzeigen
     */
 
     document
@@ -204,7 +266,7 @@ function logout() {
 
 
     /*
-        Eingaben löschen
+        Eingabefelder leeren
     */
 
     document.getElementById("username").value = "";
@@ -252,7 +314,7 @@ function selectDevice(index) {
 
 
     /*
-        Geräteliste markieren
+        Gerät in der Liste markieren
     */
 
     document
@@ -274,7 +336,7 @@ function selectDevice(index) {
 
 
     /*
-        Position
+        Position anzeigen
     */
 
     document.getElementById("x").innerText =
@@ -286,7 +348,7 @@ function selectDevice(index) {
 
 
     /*
-        RSSI
+        RSSI anzeigen
     */
 
     document.getElementById("rssiA").innerText =
@@ -298,7 +360,7 @@ function selectDevice(index) {
 
 
     /*
-        Entfernung
+        Entfernung anzeigen
     */
 
     document.getElementById("distanceA").innerText =
@@ -310,7 +372,7 @@ function selectDevice(index) {
 
 
     /*
-        Radius
+        Radius aktualisieren
     */
 
     updateRadius(index);
@@ -334,21 +396,35 @@ function updateRadius(index) {
         document.querySelector(".room");
 
 
+    /*
+        Sicherheitsprüfung
+    */
+
     if (!element || !room) {
+
         return;
+
     }
 
+
+    /*
+        Größe und Position des Raums
+    */
 
     const roomRect =
         room.getBoundingClientRect();
 
+
+    /*
+        Größe und Position des Geräts
+    */
 
     const elementRect =
         element.getBoundingClientRect();
 
 
     /*
-        Mittelpunkt des Geräts
+        Mittelpunkt des Geräts berechnen
     */
 
     const x =
@@ -364,7 +440,7 @@ function updateRadius(index) {
 
 
     /*
-        Radius setzen
+        Radius bewegen
     */
 
     const radius =
@@ -429,7 +505,7 @@ function locateDevice() {
 
 
 /* =====================================================
-   START
+   START DER ANWENDUNG
 ===================================================== */
 
 window.addEventListener(
@@ -437,8 +513,8 @@ window.addEventListener(
     function () {
 
         /*
-            Überprüfen, ob bereits
-            eingeloggt wurde
+            Prüfen, ob bereits
+            eingeloggt wurde.
         */
 
         const loggedIn =
@@ -447,11 +523,12 @@ window.addEventListener(
             );
 
 
-        if (loggedIn === "true") {
+        /*
+            Wenn eingeloggt:
+            MedTrack direkt anzeigen.
+        */
 
-            /*
-                Login überspringen
-            */
+        if (loggedIn === "true") {
 
             document
                 .getElementById("loginScreen")
@@ -469,11 +546,13 @@ window.addEventListener(
 
         }
 
-        else {
 
-            /*
-                Login anzeigen
-            */
+        /*
+            Wenn NICHT eingeloggt:
+            Login anzeigen.
+        */
+
+        else {
 
             document
                 .getElementById("loginScreen")
