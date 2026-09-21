@@ -271,3 +271,197 @@ window.addEventListener(
 
     }
 );
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(username, password) {
+
+    const formData = new FormData();
+
+    formData.append("username", username);
+    formData.append("password", password);
+
+    const response = await fetch(
+        "../Backend/php/login.php",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+        throw new Error(
+            data.message || "Login fehlgeschlagen."
+        );
+    }
+
+    showLoggedInUser(
+        data.username,
+        data.role
+    );
+}
+
+
+/* =====================================================
+   USER ANZEIGEN
+===================================================== */
+
+function showLoggedInUser(username, role) {
+
+    document.getElementById(
+        "currentUsername"
+    ).innerText = username;
+
+    document.getElementById(
+        "currentRole"
+    ).innerText = role;
+
+    document.getElementById(
+        "userAvatar"
+    ).innerText =
+        username.charAt(0).toUpperCase();
+
+    document.getElementById(
+        "loginOverlay"
+    ).classList.add("hidden");
+}
+
+
+/* =====================================================
+   SESSION PRÜFEN
+===================================================== */
+
+async function checkSession() {
+
+    try {
+
+        const response = await fetch(
+            "../Backend/php/me.php"
+        );
+
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        if (!data.loggedIn) {
+            return false;
+        }
+
+        showLoggedInUser(
+            data.user.username,
+            data.user.role
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        return false;
+    }
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout() {
+
+    await fetch(
+        "../Backend/php/logout.php",
+        {
+            method: "POST"
+        }
+    );
+
+    location.reload();
+}
+
+
+/* =====================================================
+   LOGIN FORM
+===================================================== */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+            const password =
+                document.getElementById(
+                    "password"
+                ).value;
+
+            const message =
+                document.getElementById(
+                    "loginMessage"
+                );
+
+            message.innerText = "";
+
+            try {
+
+                await login(
+                    username,
+                    password
+                );
+
+            } catch (error) {
+
+                message.innerText =
+                    error.message;
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        logout
+    );
+
+
+/* =====================================================
+   SESSION BEIM START PRÜFEN
+===================================================== */
+
+window.addEventListener(
+    "load",
+    async function() {
+
+        const loggedIn =
+            await checkSession();
+
+        if (!loggedIn) {
+
+            document
+                .getElementById("loginOverlay")
+                .classList
+                .remove("hidden");
+        }
+
+    }
+);

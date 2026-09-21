@@ -12,6 +12,93 @@
 
 <body>
 
+<div id="loginOverlay" class="login-overlay">
+
+    <div class="header-right">
+
+    <div class="connection">
+        <div class="online"></div>
+        <span>ESP32 System Online</span>
+    </div>
+
+    <div class="user-menu">
+
+        <div class="user-info">
+
+            <div id="userAvatar" class="user-avatar">
+                A
+            </div>
+
+            <div>
+                <div id="currentUsername" class="current-username">
+                    Benutzer
+                </div>
+
+                <div id="currentRole" class="current-role">
+                    Rolle
+                </div>
+            </div>
+
+        </div>
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+        >
+            Abmelden
+        </button>
+
+    </div>
+
+</div>
+
+        <h1>Anmelden</h1>
+
+        <p class="login-subtitle">
+            Melde dich an, um MedTrack zu verwenden.
+        </p>
+
+        <form id="loginForm">
+
+            <label for="username">
+                Benutzername
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                placeholder="Benutzername"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">
+                Passwort
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Passwort"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                type="submit"
+                class="button login-button"
+            >
+                Anmelden
+            </button>
+
+            <p id="loginMessage" class="login-message"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
 <header>
     <div class="logo">
         <div class="logo-icon">M</div>
