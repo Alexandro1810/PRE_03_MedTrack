@@ -5,11 +5,21 @@
 
 
 /* =====================================================
-   TEST-BENUTZER
+   BENUTZER
 ===================================================== */
 
 const LOGIN_USERNAME = "admin";
 const LOGIN_PASSWORD = "medtrack";
+
+const LOGIN_USERNAME2 = "Alex";
+const LOGIN_PASSWORD2 = "Wöhrer";
+
+const LOGIN_USERNAME3 = "Julian";
+const LOGIN_PASSWORD3 = "Tschiltsch";
+
+const LOGIN_USERNAME4 = "Leon";
+const LOGIN_PASSWORD4 = "Parzer";
+
 
 
 /* =====================================================
