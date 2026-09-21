@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedTrack – Indoor Equipment Tracking</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">M</div>
+        <span>MedTrack</span>
+    </div>
+
+    <div class="connection">
+        <div class="online"></div>
+        <span>ESP32 System Online</span>
+    </div>
+</header>
+
+
+<main>
+
+    <div class="title">
+        <h1>Indoor Equipment Tracking</h1>
+
+        <p>
+            Ortung medizinischer Geräte mittels BLE, RSSI und
+            positionsbasierter Auswertung
+        </p>
+    </div>
+
+
+    <div class="layout">
+
+        <!-- =========================
+             LINKER BEREICH – RAUM
+        ========================== -->
+
+        <div class="card">
+
+            <div class="card-header">
+                <h2>Raum 01</h2>
+
+                <div class="room-size">
+                    12 m × 11 m
+                </div>
+            </div>
+
+
+            <div class="room-wrapper">
+
+                <div class="room">
+
+                    <!-- X-ACHSE -->
+
+                    <div class="x-axis"></div>
+
+                    <span class="axis-number x0">
+                        0 m
+                    </span>
+
+                    <span class="axis-number x6">
+                        6 m
+                    </span>
+
+                    <span class="axis-number x12">
+                        12 m
+                    </span>
+
+                    <span class="x-label">
+                        X →
+                    </span>
+
+
+                    <!-- Y-ACHSE -->
+
+                    <div class="y-axis"></div>
+
+                    <span class="axis-number y0">
+                        0 m
+                    </span>
+
+                    <span class="axis-number y5">
+                        5 m
+                    </span>
+
+                    <span class="axis-number y11">
+                        11 m
+                    </span>
+
+                    <span class="y-label">
+                        Y ↑
+                    </span>
+
+
+                    <!-- SENSOR A -->
+
+                    <div class="sensor sensor-a">
+                        A
+
+                        <div class="sensor-label">
+                            ESP32 A
+                        </div>
+                    </div>
+
+
+                    <!-- SENSOR B -->
+
+                    <div class="sensor sensor-b">
+                        B
+
+                        <div class="sensor-label">
+                            ESP32 B
+                        </div>
+                    </div>
+
+
+                    <!-- RADIUS / ORTUNGSKREIS -->
+
+                    <div
+                        id="radius"
+                        class="radius">
+                    </div>
+
+
+                    <!-- GERÄT 1 -->
+
+                    <div
+                        id="device1"
+                        class="device selected"
+                        style="left:61%; top:48%;"
+                        onclick="selectDevice(0)"
+                    >
+                        <div class="device-label">
+                            EKG #01
+                        </div>
+                    </div>
+
+
+                    <!-- GERÄT 2 -->
+
+                    <div
+                        id="device2"
+                        class="device"
+                        style="left:78%; top:70%;"
+                        onclick="selectDevice(1)"
+                    >
+                        <div class="device-label">
+                            Pumpe #02
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LEGENDE -->
+
+            <div class="legend">
+
+                <div class="legend-item">
+                    <div class="legend-dot sensor-dot"></div>
+                    BLE Sensor
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-dot device-dot"></div>
+                    Gerät
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-dot selected-dot"></div>
+                    ausgewählt
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             RECHTER BEREICH
+        ========================== -->
+
+        <div class="card">
+
+            <div class="card-header">
+                <h2>Geräte</h2>
+            </div>
+
+
+            <!-- GERÄTELISTE -->
+
+            <div class="device-list">
+
+                <div
+                    class="device-item selected"
+                    id="item0"
+                    onclick="selectDevice(0)"
+                >
+
+                    <div class="device-name">
+                        EKG #01
+                    </div>
+
+                    <div class="device-type">
+                        EKG-Gerät
+                    </div>
+
+                    <div class="status">
+                        ● Online
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="device-item"
+                    id="item1"
+                    onclick="selectDevice(1)"
+                >
+
+                    <div class="device-name">
+                        Pumpe #02
+                    </div>
+
+                    <div class="device-type">
+                        Infusionspumpe
+                    </div>
+
+                    <div class="status">
+                        ● Online
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="details">
+
+                <h2>
+                    Berechnete Position
+                </h2>
+
+
+                <div class="detail-row">
+                    <span>X-Position</span>
+
+                    <span id="x">
+                        7.32 m
+                    </span>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>Y-Position</span>
+
+                    <span id="y">
+                        5.28 m
+                    </span>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>RSSI Sensor A</span>
+
+                    <span id="rssiA">
+                        -58 dBm
+                    </span>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>RSSI Sensor B</span>
+
+                    <span id="rssiB">
+                        -69 dBm
+                    </span>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>Entfernung A</span>
+
+                    <span id="distanceA">
+                        4.1 m
+                    </span>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>Entfernung B</span>
+
+                    <span id="distanceB">
+                        6.3 m
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- GENAUIGKEIT -->
+
+            <div class="accuracy">
+
+                <div class="accuracy-title">
+                    Aktuelle Messgenauigkeit
+                </div>
+
+                <div
+                    class="accuracy-value"
+                    id="accuracy"
+                >
+                    Testbetrieb
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                class="button"
+                onclick="locateDevice()"
+            >
+                Gerät lokalisieren
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
