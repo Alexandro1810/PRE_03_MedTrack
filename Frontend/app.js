@@ -1,9 +1,15 @@
 /* =====================================================
    MEDTRACK
-   Frontend JavaScript
-   Aktuell: Testdaten
-   Später: Daten aus PHP API
+   LOGIN + FRONTEND
 ===================================================== */
+
+
+/* =====================================================
+   TEST-BENUTZER
+===================================================== */
+
+const LOGIN_USERNAME = "admin";
+const LOGIN_PASSWORD = "medtrack";
 
 
 /* =====================================================
@@ -14,33 +20,44 @@ const devices = [
 
     {
         id: 1,
+
         name: "EKG #01",
+
         type: "EKG-Gerät",
 
         x: 7.32,
+
         y: 5.28,
 
         rssiA: -58,
+
         rssiB: -69,
 
         distanceA: 4.1,
+
         distanceB: 6.3,
 
         status: "Online"
     },
 
+
     {
         id: 2,
+
         name: "Pumpe #02",
+
         type: "Infusionspumpe",
 
         x: 9.36,
+
         y: 7.70,
 
         rssiA: -71,
+
         rssiB: -52,
 
         distanceA: 7.4,
+
         distanceB: 3.8,
 
         status: "Online"
@@ -50,10 +67,143 @@ const devices = [
 
 
 /* =====================================================
-   AKTUELL AUSGEWÄHLTES GERÄT
+   AKTUELLES GERÄT
 ===================================================== */
 
 let selectedDevice = 0;
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login(event) {
+
+    event.preventDefault();
+
+
+    const username =
+        document.getElementById("username").value.trim();
+
+
+    const password =
+        document.getElementById("password").value;
+
+
+    const error =
+        document.getElementById("loginError");
+
+
+    /*
+        Login überprüfen
+    */
+
+    if (
+        username === LOGIN_USERNAME &&
+        password === LOGIN_PASSWORD
+    ) {
+
+        /*
+            Login speichern
+        */
+
+        sessionStorage.setItem(
+            "medtrackLoggedIn",
+            "true"
+        );
+
+
+        /*
+            Login-Fehler löschen
+        */
+
+        error.innerText = "";
+
+
+        /*
+            Login verstecken
+        */
+
+        document
+            .getElementById("loginScreen")
+            .classList
+            .add("hidden");
+
+
+        /*
+            App anzeigen
+        */
+
+        document
+            .getElementById("app")
+            .classList
+            .remove("hidden");
+
+
+        /*
+            Gerät laden
+        */
+
+        selectDevice(0);
+
+    }
+
+    else {
+
+        error.innerText =
+            "Benutzername oder Passwort ist falsch.";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    /*
+        Login löschen
+    */
+
+    sessionStorage.removeItem(
+        "medtrackLoggedIn"
+    );
+
+
+    /*
+        App verstecken
+    */
+
+    document
+        .getElementById("app")
+        .classList
+        .add("hidden");
+
+
+    /*
+        Login anzeigen
+    */
+
+    document
+        .getElementById("loginScreen")
+        .classList
+        .remove("hidden");
+
+
+    /*
+        Eingaben löschen
+    */
+
+    document.getElementById("username").value = "";
+
+    document.getElementById("password").value = "";
+
+    document.getElementById("loginError").innerText = "";
+
+}
 
 
 /* =====================================================
@@ -64,11 +214,13 @@ function selectDevice(index) {
 
     selectedDevice = index;
 
-    const device = devices[index];
+
+    const device =
+        devices[index];
 
 
     /*
-        Geräte im Raum markieren
+        Gerät im Raum markieren
     */
 
     document
@@ -78,6 +230,7 @@ function selectDevice(index) {
             "selected",
             index === 0
         );
+
 
     document
         .getElementById("device2")
@@ -89,7 +242,7 @@ function selectDevice(index) {
 
 
     /*
-        Geräte-Liste markieren
+        Geräteliste markieren
     */
 
     document
@@ -99,6 +252,7 @@ function selectDevice(index) {
             "selected",
             index === 0
         );
+
 
     document
         .getElementById("item1")
@@ -110,11 +264,12 @@ function selectDevice(index) {
 
 
     /*
-        Positionsdaten
+        Position
     */
 
     document.getElementById("x").innerText =
         device.x.toFixed(2) + " m";
+
 
     document.getElementById("y").innerText =
         device.y.toFixed(2) + " m";
@@ -127,31 +282,34 @@ function selectDevice(index) {
     document.getElementById("rssiA").innerText =
         device.rssiA + " dBm";
 
+
     document.getElementById("rssiB").innerText =
         device.rssiB + " dBm";
 
 
     /*
-        Entfernungen
+        Entfernung
     */
 
     document.getElementById("distanceA").innerText =
         device.distanceA.toFixed(1) + " m";
+
 
     document.getElementById("distanceB").innerText =
         device.distanceB.toFixed(1) + " m";
 
 
     /*
-        Radius aktualisieren
+        Radius
     */
 
     updateRadius(index);
+
 }
 
 
 /* =====================================================
-   ORTUNGSRADIUS POSITIONIEREN
+   RADIUS
 ===================================================== */
 
 function updateRadius(index) {
@@ -161,12 +319,19 @@ function updateRadius(index) {
             "device" + (index + 1)
         );
 
+
     const room =
         document.querySelector(".room");
 
 
+    if (!element || !room) {
+        return;
+    }
+
+
     const roomRect =
         room.getBoundingClientRect();
+
 
     const elementRect =
         element.getBoundingClientRect();
@@ -181,6 +346,7 @@ function updateRadius(index) {
         roomRect.left +
         elementRect.width / 2;
 
+
     const y =
         elementRect.top -
         roomRect.top +
@@ -188,17 +354,20 @@ function updateRadius(index) {
 
 
     /*
-        Radius anzeigen
+        Radius setzen
     */
 
     const radius =
         document.getElementById("radius");
 
+
     radius.style.left =
         x + "px";
 
+
     radius.style.top =
         y + "px";
+
 }
 
 
@@ -213,7 +382,9 @@ function locateDevice() {
 
 
     alert(
+
         device.name +
+
         "\n\n" +
 
         "Berechnete Position:" +
@@ -241,22 +412,86 @@ function locateDevice() {
         "\nEntfernung B: " +
         device.distanceB.toFixed(1) +
         " m"
+
     );
+
 }
 
 
 /* =====================================================
-   INITIALISIERUNG
+   START
 ===================================================== */
 
 window.addEventListener(
     "load",
     function () {
 
-        selectDevice(0);
+        /*
+            Überprüfen, ob bereits
+            eingeloggt wurde
+        */
+
+        const loggedIn =
+            sessionStorage.getItem(
+                "medtrackLoggedIn"
+            );
+
+
+        if (loggedIn === "true") {
+
+            /*
+                Login überspringen
+            */
+
+            document
+                .getElementById("loginScreen")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("app")
+                .classList
+                .remove("hidden");
+
+
+            selectDevice(0);
+
+        }
+
+        else {
+
+            /*
+                Login anzeigen
+            */
+
+            document
+                .getElementById("loginScreen")
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById("app")
+                .classList
+                .add("hidden");
+
+        }
 
     }
 );
+
+
+/* =====================================================
+   LOGIN-FORMULAR
+===================================================== */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        login
+    );
 
 
 /* =====================================================
@@ -267,200 +502,16 @@ window.addEventListener(
     "resize",
     function () {
 
-        updateRadius(selectedDevice);
-
-    }
-);
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-async function login(username, password) {
-
-    const formData = new FormData();
-
-    formData.append("username", username);
-    formData.append("password", password);
-
-    const response = await fetch(
-        "../Backend/php/login.php",
-        {
-            method: "POST",
-            body: formData
-        }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-        throw new Error(
-            data.message || "Login fehlgeschlagen."
-        );
-    }
-
-    showLoggedInUser(
-        data.username,
-        data.role
-    );
-}
-
-
-/* =====================================================
-   USER ANZEIGEN
-===================================================== */
-
-function showLoggedInUser(username, role) {
-
-    document.getElementById(
-        "currentUsername"
-    ).innerText = username;
-
-    document.getElementById(
-        "currentRole"
-    ).innerText = role;
-
-    document.getElementById(
-        "userAvatar"
-    ).innerText =
-        username.charAt(0).toUpperCase();
-
-    document.getElementById(
-        "loginOverlay"
-    ).classList.add("hidden");
-}
-
-
-/* =====================================================
-   SESSION PRÜFEN
-===================================================== */
-
-async function checkSession() {
-
-    try {
-
-        const response = await fetch(
-            "../Backend/php/me.php"
-        );
-
-        if (!response.ok) {
-            return false;
-        }
-
-        const data = await response.json();
-
-        if (!data.loggedIn) {
-            return false;
-        }
-
-        showLoggedInUser(
-            data.user.username,
-            data.user.role
-        );
-
-        return true;
-
-    } catch (error) {
-
-        console.error(error);
-
-        return false;
-    }
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout() {
-
-    await fetch(
-        "../Backend/php/logout.php",
-        {
-            method: "POST"
-        }
-    );
-
-    location.reload();
-}
-
-
-/* =====================================================
-   LOGIN FORM
-===================================================== */
-
-document
-    .getElementById("loginForm")
-    .addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-            const username =
-                document.getElementById(
-                    "username"
-                ).value.trim();
-
-            const password =
-                document.getElementById(
-                    "password"
-                ).value;
-
-            const message =
-                document.getElementById(
-                    "loginMessage"
-                );
-
-            message.innerText = "";
-
-            try {
-
-                await login(
-                    username,
-                    password
-                );
-
-            } catch (error) {
-
-                message.innerText =
-                    error.message;
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   LOGOUT BUTTON
-===================================================== */
-
-document
-    .getElementById("logoutButton")
-    .addEventListener(
-        "click",
-        logout
-    );
-
-
-/* =====================================================
-   SESSION BEIM START PRÜFEN
-===================================================== */
-
-window.addEventListener(
-    "load",
-    async function() {
-
         const loggedIn =
-            await checkSession();
+            sessionStorage.getItem(
+                "medtrackLoggedIn"
+            );
 
-        if (!loggedIn) {
 
-            document
-                .getElementById("loginOverlay")
-                .classList
-                .remove("hidden");
+        if (loggedIn === "true") {
+
+            updateRadius(selectedDevice);
+
         }
 
     }

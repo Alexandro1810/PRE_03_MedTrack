@@ -10,8 +10,178 @@
 
 body {
     font-family: Arial, sans-serif;
+
     background: #f4f7fb;
+
     color: #172033;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #f4f7fb;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.login-screen.hidden {
+    display: none;
+}
+
+
+.login-box {
+
+    width: 400px;
+
+    max-width: calc(100% - 40px);
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 15px;
+
+    border: 1px solid #dfe5ee;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+.login-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+}
+
+
+.login-box h1 {
+
+    font-size: 27px;
+
+    margin-bottom: 8px;
+}
+
+
+.login-description {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+.login-box label {
+
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 6px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+.login-box input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #dfe5ee;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.login-box input:focus {
+
+    border-color: #2563eb;
+}
+
+
+.login-button {
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.login-button:hover {
+
+    background: #1d4ed8;
+}
+
+
+.login-error {
+
+    color: #dc2626;
+
+    font-size: 13px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    min-height: 18px;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app.hidden {
+    display: none;
 }
 
 
@@ -20,6 +190,7 @@ body {
 ========================= */
 
 header {
+
     height: 70px;
 
     background: white;
@@ -27,40 +198,65 @@ header {
     border-bottom: 1px solid #dfe5ee;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 0 30px;
 }
 
+
 .logo {
+
     display: flex;
+
     align-items: center;
 
     gap: 12px;
 
     font-size: 21px;
+
     font-weight: bold;
 }
 
+
 .logo-icon {
+
     width: 38px;
+
     height: 38px;
 
     border-radius: 10px;
 
     background: #2563eb;
+
     color: white;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     font-weight: bold;
 }
 
-.connection {
+
+.header-right {
+
     display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.connection {
+
+    display: flex;
+
     align-items: center;
 
     gap: 8px;
@@ -70,8 +266,11 @@ header {
     font-size: 14px;
 }
 
+
 .online {
+
     width: 9px;
+
     height: 9px;
 
     background: #22c55e;
@@ -80,11 +279,34 @@ header {
 }
 
 
+.logout-button {
+
+    border: 1px solid #dfe5ee;
+
+    background: white;
+
+    padding: 8px 13px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    color: #334155;
+}
+
+
+.logout-button:hover {
+
+    background: #f8fafc;
+}
+
+
 /* =========================
    HAUPTBEREICH
 ========================= */
 
 main {
+
     max-width: 1500px;
 
     margin: auto;
@@ -92,17 +314,23 @@ main {
     padding: 28px;
 }
 
+
 .title {
+
     margin-bottom: 25px;
 }
 
+
 .title h1 {
+
     font-size: 28px;
 
     margin-bottom: 5px;
 }
 
+
 .title p {
+
     color: #64748b;
 }
 
@@ -112,6 +340,7 @@ main {
 ========================= */
 
 .layout {
+
     display: grid;
 
     grid-template-columns: 1fr 340px;
@@ -119,7 +348,9 @@ main {
     gap: 24px;
 }
 
+
 .card {
+
     background: white;
 
     border: 1px solid #dfe5ee;
@@ -132,20 +363,27 @@ main {
         0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
+
 .card-header {
+
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     margin-bottom: 20px;
 }
 
+
 .card-header h2 {
+
     font-size: 18px;
 }
 
+
 .room-size {
+
     color: #64748b;
 
     font-size: 13px;
@@ -157,6 +395,7 @@ main {
 ========================= */
 
 .room-wrapper {
+
     position: relative;
 
     padding: 45px 45px 45px 55px;
@@ -166,7 +405,9 @@ main {
     border-radius: 10px;
 }
 
+
 .room {
+
     position: relative;
 
     width: 100%;
@@ -197,9 +438,11 @@ main {
 ========================= */
 
 .x-axis {
+
     position: absolute;
 
     left: 0;
+
     right: 0;
 
     bottom: -31px;
@@ -209,12 +452,15 @@ main {
     background: #334155;
 }
 
+
 .y-axis {
+
     position: absolute;
 
     left: -31px;
 
     top: 0;
+
     bottom: 0;
 
     width: 2px;
@@ -222,27 +468,37 @@ main {
     background: #334155;
 }
 
+
 .x-label {
+
     position: absolute;
 
     right: -5px;
+
     bottom: -45px;
 
     font-size: 12px;
+
     font-weight: bold;
 }
 
+
 .y-label {
+
     position: absolute;
 
     left: -49px;
+
     top: -8px;
 
     font-size: 12px;
+
     font-weight: bold;
 }
 
+
 .axis-number {
+
     position: absolute;
 
     font-size: 10px;
@@ -250,12 +506,17 @@ main {
     color: #64748b;
 }
 
+
 .x0 {
+
     left: 0;
+
     bottom: -25px;
 }
 
+
 .x6 {
+
     left: 50%;
 
     transform: translateX(-50%);
@@ -263,17 +524,25 @@ main {
     bottom: -25px;
 }
 
+
 .x12 {
+
     right: 0;
+
     bottom: -25px;
 }
 
+
 .y0 {
+
     left: -24px;
+
     bottom: -5px;
 }
 
+
 .y5 {
+
     left: -24px;
 
     top: 50%;
@@ -281,33 +550,41 @@ main {
     transform: translateY(-50%);
 }
 
+
 .y11 {
+
     left: -30px;
+
     top: -5px;
 }
 
 
 /* =========================
-   ESP32 SENSOR
+   SENSOR
 ========================= */
 
 .sensor {
+
     position: absolute;
 
     width: 38px;
+
     height: 38px;
 
     border-radius: 50%;
 
     background: #111827;
+
     color: white;
 
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     font-size: 12px;
+
     font-weight: bold;
 
     transform: translate(-50%, 50%);
@@ -315,22 +592,31 @@ main {
     z-index: 10;
 }
 
+
 .sensor-a {
+
     left: 0;
+
     bottom: 0;
 }
+
 
 .sensor-b {
+
     left: 100%;
+
     bottom: 0;
 }
 
+
 .sensor-label {
+
     position: absolute;
 
     bottom: 45px;
 
     background: #111827;
+
     color: white;
 
     padding: 5px 8px;
@@ -348,9 +634,11 @@ main {
 ========================= */
 
 .device {
+
     position: absolute;
 
     width: 24px;
+
     height: 24px;
 
     background: #2563eb;
@@ -370,7 +658,9 @@ main {
     z-index: 8;
 }
 
+
 .device.selected {
+
     background: #22c55e;
 
     box-shadow:
@@ -378,10 +668,13 @@ main {
         0 0 0 13px rgba(34, 197, 94, 0.12);
 }
 
+
 .device-label {
+
     position: absolute;
 
     top: 30px;
+
     left: 50%;
 
     transform: translateX(-50%);
@@ -404,13 +697,15 @@ main {
 
 
 /* =========================
-   ORTUNGSRADIUS
+   RADIUS
 ========================= */
 
 .radius {
+
     position: absolute;
 
     width: 70px;
+
     height: 70px;
 
     border:
@@ -432,6 +727,7 @@ main {
 ========================= */
 
 .device-list {
+
     display: flex;
 
     flex-direction: column;
@@ -439,7 +735,9 @@ main {
     gap: 10px;
 }
 
+
 .device-item {
+
     padding: 14px;
 
     border: 1px solid #dfe5ee;
@@ -451,29 +749,39 @@ main {
     transition: 0.2s;
 }
 
+
 .device-item:hover {
+
     background: #f8fafc;
 }
 
+
 .device-item.selected {
+
     border-color: #2563eb;
 
     background: #eff6ff;
 }
 
+
 .device-name {
+
     font-weight: bold;
 
     margin-bottom: 5px;
 }
 
+
 .device-type {
+
     color: #64748b;
 
     font-size: 13px;
 }
 
+
 .status {
+
     margin-top: 8px;
 
     color: #16a34a;
@@ -487,16 +795,21 @@ main {
 ========================= */
 
 .details {
+
     margin-top: 25px;
 }
 
+
 .details h2 {
+
     font-size: 18px;
 
     margin-bottom: 10px;
 }
 
+
 .detail-row {
+
     display: flex;
 
     justify-content: space-between;
@@ -508,11 +821,15 @@ main {
     font-size: 14px;
 }
 
+
 .detail-row span:first-child {
+
     color: #64748b;
 }
 
+
 .detail-row span:last-child {
+
     font-weight: bold;
 }
 
@@ -522,6 +839,7 @@ main {
 ========================= */
 
 .accuracy {
+
     margin-top: 20px;
 
     padding: 14px;
@@ -533,7 +851,9 @@ main {
     border-radius: 9px;
 }
 
+
 .accuracy-title {
+
     color: #64748b;
 
     font-size: 13px;
@@ -541,7 +861,9 @@ main {
     margin-bottom: 5px;
 }
 
+
 .accuracy-value {
+
     color: #172033;
 
     font-size: 20px;
@@ -555,6 +877,7 @@ main {
 ========================= */
 
 .button {
+
     width: 100%;
 
     margin-top: 20px;
@@ -574,7 +897,9 @@ main {
     cursor: pointer;
 }
 
+
 .button:hover {
+
     background: #1d4ed8;
 }
 
@@ -584,6 +909,7 @@ main {
 ========================= */
 
 .legend {
+
     display: flex;
 
     gap: 20px;
@@ -595,7 +921,9 @@ main {
     font-size: 12px;
 }
 
+
 .legend-item {
+
     display: flex;
 
     align-items: center;
@@ -603,22 +931,31 @@ main {
     gap: 6px;
 }
 
+
 .legend-dot {
+
     width: 10px;
+
     height: 10px;
 
     border-radius: 50%;
 }
 
+
 .sensor-dot {
+
     background: #111827;
 }
 
+
 .device-dot {
+
     background: #2563eb;
 }
 
+
 .selected-dot {
+
     background: #22c55e;
 }
 
@@ -630,7 +967,18 @@ main {
 @media (max-width: 900px) {
 
     .layout {
+
         grid-template-columns: 1fr;
+    }
+
+    .header-right {
+
+        gap: 10px;
+    }
+
+    .connection {
+
+        display: none;
     }
 
 }
