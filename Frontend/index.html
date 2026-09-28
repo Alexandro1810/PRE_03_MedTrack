@@ -1,503 +1,112 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MedTrack – Anmeldung</title>
-
+    <title>MedTrack – Indoor Equipment Tracking</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
-
 <div id="loginScreen" class="login-screen">
-
-    <div class="login-box">
-
-        <div class="login-logo">
-            <div class="logo-icon">M</div>
-            <span>MedTrack</span>
-        </div>
-
+    <div class="login-card">
+        <div class="brand large"><div class="logo-icon">M</div><strong>MedTrack</strong></div>
         <h1>Anmeldung</h1>
-
-        <p class="login-description">
-            Bitte melde dich an, um MedTrack zu verwenden.
-        </p>
-
+        <p>Melde dich an, um MedTrack zu verwenden.</p>
         <form id="loginForm">
-
-            <label for="username">
-                Benutzername
-            </label>
-
-            <input
-                type="text"
-                id="username"
-                placeholder="Benutzername"
-                required
-            >
-
-            <label for="password">
-                Passwort
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Passwort"
-                required
-            >
-
-            <button type="submit" class="login-button">
-                Anmelden
-            </button>
-
-            <p id="loginError" class="login-error"></p>
-
+            <label for="loginUsername">Benutzername</label>
+            <input id="loginUsername" name="username" type="text" autocomplete="username" required>
+            <label for="loginPassword">Passwort</label>
+            <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+            <button class="primary full" type="submit">Anmelden</button>
+            <div id="loginError" class="error"></div>
         </form>
-
     </div>
-
 </div>
-
-
-<!-- =========================
-     MEDTRACK APP
-========================= -->
 
 <div id="app" class="app hidden">
-
-    <!-- HEADER -->
-
-    <header>
-
-        <div class="logo">
-
-            <div class="logo-icon">
-                M
+    <header class="topbar">
+        <div class="brand"><div class="logo-icon">M</div><strong>MedTrack</strong></div>
+        <div class="top-right">
+            <span class="system-status"><i></i> ESP32 System Online</span>
+            <div class="profile-wrap">
+                <button class="profile-button" id="profileButton">
+                    <span class="avatar" id="headerAvatar">U</span>
+                    <span id="headerUserName">Benutzer</span>
+                    <span>⌄</span>
+                </button>
+                <div class="profile-menu hidden" id="profileMenu">
+                    <div class="profile-info"><strong id="menuUserName">Benutzer</strong><span id="menuUserRole">Benutzer</span></div>
+                    <button id="logoutButton">Abmelden</button>
+                </div>
             </div>
-
-            <span>
-                MedTrack
-            </span>
-
         </div>
-
-
-        <div class="header-right">
-
-            <div class="connection">
-
-                <div class="online"></div>
-
-                <span>
-                    ESP32 System Online
-                </span>
-
-            </div>
-
-            <button
-                class="logout-button"
-                onclick="logout()"
-            >
-                Abmelden
-            </button>
-
-        </div>
-
     </header>
 
+    <div class="shell">
+        <aside class="sidebar">
+            <nav>
+                <button class="nav-item active" data-section="home"><span>⌂</span><b>Home</b></button>
+                <button class="nav-item" data-section="devices"><span>▣</span><b>Geräte</b></button>
+                <button class="nav-item" data-section="calendar"><span>▦</span><b>Kalender</b></button>
+                <button class="nav-item" data-section="settings"><span>⚙</span><b>Einstellungen</b></button>
+            </nav>
+            <div class="sidebar-footer">MedTrack Beta<br><small>BLE · RSSI · ESP32</small></div>
+        </aside>
 
-    <!-- HAUPTBEREICH -->
-
-    <main>
-
-        <div class="title">
-
-            <h1>
-                Indoor Equipment Tracking
-            </h1>
-
-            <p>
-                Ortung medizinischer Geräte mittels BLE, RSSI und
-                positionsbasierter Auswertung
-            </p>
-
-        </div>
-
-
-        <div class="layout">
-
-
-            <!-- =========================
-                 LINKER BEREICH
-            ========================== -->
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <h2>
-                        Raum 01
-                    </h2>
-
-                    <div class="room-size">
-                        12 m × 11 m
-                    </div>
-
-                </div>
-
-
-                <div class="room-wrapper">
-
-                    <div class="room">
-
-
-                        <!-- X-ACHSE -->
-
-                        <div class="x-axis"></div>
-
-                        <span class="axis-number x0">
-                            0 m
-                        </span>
-
-                        <span class="axis-number x6">
-                            6 m
-                        </span>
-
-                        <span class="axis-number x12">
-                            12 m
-                        </span>
-
-                        <span class="x-label">
-                            X →
-                        </span>
-
-
-                        <!-- Y-ACHSE -->
-
-                        <div class="y-axis"></div>
-
-                        <span class="axis-number y0">
-                            0 m
-                        </span>
-
-                        <span class="axis-number y5">
-                            5 m
-                        </span>
-
-                        <span class="axis-number y11">
-                            11 m
-                        </span>
-
-                        <span class="y-label">
-                            Y ↑
-                        </span>
-
-
-                        <!-- SENSOR A -->
-
-                        <div class="sensor sensor-a">
-
-                            A
-
-                            <div class="sensor-label">
-                                ESP32 A
+        <main class="content">
+            <section id="section-home" class="page-section">
+                <div class="page-title"><div><h1>Indoor Equipment Tracking</h1><p>Ortung medizinischer Geräte mittels BLE, RSSI und positionsbasierter Auswertung</p></div></div>
+                <div class="layout">
+                    <div class="card room-card">
+                        <div class="card-header"><div><h2>Raum 01</h2><span class="muted">Testbereich</span></div><span class="room-size">12 m × 11 m</span></div>
+                        <div class="room-wrapper">
+                            <div class="room" id="room">
+                                <div class="grid-line vertical v1"></div><div class="grid-line vertical v2"></div><div class="grid-line vertical v3"></div><div class="grid-line vertical v4"></div><div class="grid-line vertical v5"></div><div class="grid-line vertical v6"></div><div class="grid-line vertical v7"></div><div class="grid-line vertical v8"></div><div class="grid-line vertical v9"></div><div class="grid-line vertical v10"></div><div class="grid-line vertical v11"></div>
+                                <div class="grid-line horizontal h1"></div><div class="grid-line horizontal h2"></div><div class="grid-line horizontal h3"></div><div class="grid-line horizontal h4"></div><div class="grid-line horizontal h5"></div><div class="grid-line horizontal h6"></div><div class="grid-line horizontal h7"></div><div class="grid-line horizontal h8"></div><div class="grid-line horizontal h9"></div>
+                                <span class="axis-label left">Y ↑</span><span class="axis-label bottom">X →</span>
+                                <span class="axis-number x0">0 m</span><span class="axis-number x6">6 m</span><span class="axis-number x12">12 m</span>
+                                <span class="axis-number y0">0 m</span><span class="axis-number y5">5 m</span><span class="axis-number y11">11 m</span>
+                                <div class="sensor sensor-a">A<span>ESP32 A</span></div>
+                                <div class="sensor sensor-b">B<span>ESP32 B</span></div>
+                                <div id="radius" class="radius hidden"></div>
+                                <div id="mapDevices"></div>
                             </div>
-
                         </div>
-
-
-                        <!-- SENSOR B -->
-
-                        <div class="sensor sensor-b">
-
-                            B
-
-                            <div class="sensor-label">
-                                ESP32 B
-                            </div>
-
-                        </div>
-
-
-                        <!-- RADIUS -->
-
-                        <div
-                            id="radius"
-                            class="radius">
-                        </div>
-
-
-                        <!-- GERÄT 1 -->
-
-                        <div
-                            id="device1"
-                            class="device selected"
-                            style="left:61%; top:48%;"
-                            onclick="selectDevice(0)"
-                        >
-
-                            <div class="device-label">
-                                EKG #01
-                            </div>
-
-                        </div>
-
-
-                        <!-- GERÄT 2 -->
-
-                        <div
-                            id="device2"
-                            class="device"
-                            style="left:78%; top:70%;"
-                            onclick="selectDevice(1)"
-                        >
-
-                            <div class="device-label">
-                                Pumpe #02
-                            </div>
-
-                        </div>
-
                     </div>
-
+                    <aside class="card details-card">
+                        <div class="card-header"><h2>Geräte</h2><button class="icon-button" id="refreshDevices">↻</button></div>
+                        <div id="deviceList" class="device-list"></div>
+                        <div id="deviceDetails" class="details"></div>
+                        <button class="primary full" id="locateButton">Gerät lokalisieren</button>
+                    </aside>
                 </div>
+            </section>
 
+            <section id="section-devices" class="page-section hidden">
+                <div class="page-title"><div><h1>Geräte</h1><p>Medizinische Geräte verwalten, ausleihen und zurückgeben.</p></div><button class="primary" id="newDeviceButton">+ Gerät hinzufügen</button></div>
+                <div class="stats"><div class="stat-card"><span>Gesamt</span><strong id="deviceCount">0</strong></div><div class="stat-card"><span>Verfügbar</span><strong id="availableCount">0</strong></div><div class="stat-card"><span>In Verwendung</span><strong id="inUseCount">0</strong></div></div>
+                <div class="card table-card"><div class="table-wrap"><table><thead><tr><th>Gerät</th><th>Typ</th><th>Status</th><th>Position</th><th>Aktion</th></tr></thead><tbody id="devicesTable"></tbody></table></div></div>
+            </section>
 
-                <!-- LEGENDE -->
+            <section id="section-calendar" class="page-section hidden">
+                <div class="page-title"><div><h1>Kalender</h1><p>Wartungen, Ausleihen und Termine zentral verwalten.</p></div><button class="primary" id="newEventButton">+ Termin erstellen</button></div>
+                <div class="calendar-layout"><div class="card calendar-card"><div class="calendar-head"><button class="icon-button" id="prevMonth">‹</button><h2 id="calendarTitle">Monat</h2><button class="icon-button" id="nextMonth">›</button></div><div class="weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div><div id="calendarGrid" class="calendar-grid"></div></div><div class="card upcoming-card"><div class="card-header"><h2>Nächste Termine</h2></div><div id="upcomingEvents"></div></div></div>
+            </section>
 
-                <div class="legend">
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot sensor-dot"></div>
-
-                        BLE Sensor
-
-                    </div>
-
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot device-dot"></div>
-
-                        Gerät
-
-                    </div>
-
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot selected-dot"></div>
-
-                        ausgewählt
-
-                    </div>
-
+            <section id="section-settings" class="page-section hidden">
+                <div class="page-title"><div><h1>Einstellungen</h1><p>Deine persönlichen Einstellungen und – als Admin – die Benutzerverwaltung.</p></div></div>
+                <div class="settings-grid">
+                    <div class="card form-card"><h2>Mein Konto</h2><div class="account-row"><span>Benutzername</span><strong id="settingsUsername">-</strong></div><div class="account-row"><span>Rolle</span><strong id="settingsRole">-</strong></div><hr><h3>Passwort ändern</h3><form id="passwordForm"><label>Aktuelles Passwort<input id="currentPassword" type="password" required></label><label>Neues Passwort<input id="newPassword" type="password" minlength="4" required></label><label>Neues Passwort wiederholen<input id="newPassword2" type="password" minlength="4" required></label><button class="primary" type="submit">Passwort speichern</button><div id="passwordMessage" class="form-message"></div></form></div>
+                    <div class="card admin-card" id="adminPanel"><div class="card-header"><div><h2>Benutzerverwaltung</h2><span class="muted">Nur Administratoren</span></div></div><form id="userForm" class="inline-form"><input id="newUsername" placeholder="Benutzername" required><input id="newUserPassword" type="password" placeholder="Passwort" required><select id="newUserRole"><option value="Benutzer">Benutzer</option><option value="Administrator">Administrator</option></select><button class="primary" type="submit">Benutzer erstellen</button></form><div id="userMessage" class="form-message"></div><div class="table-wrap"><table><thead><tr><th>Benutzer</th><th>Rolle</th><th>Erstellt</th><th></th></tr></thead><tbody id="usersTable"></tbody></table></div></div>
                 </div>
-
-            </div>
-
-
-            <!-- =========================
-                 RECHTER BEREICH
-            ========================== -->
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <h2>
-                        Geräte
-                    </h2>
-
-                </div>
-
-
-                <!-- GERÄTELISTE -->
-
-                <div class="device-list">
-
-
-                    <div
-                        class="device-item selected"
-                        id="item0"
-                        onclick="selectDevice(0)"
-                    >
-
-                        <div class="device-name">
-                            EKG #01
-                        </div>
-
-                        <div class="device-type">
-                            EKG-Gerät
-                        </div>
-
-                        <div class="status">
-                            ● Online
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="device-item"
-                        id="item1"
-                        onclick="selectDevice(1)"
-                    >
-
-                        <div class="device-name">
-                            Pumpe #02
-                        </div>
-
-                        <div class="device-type">
-                            Infusionspumpe
-                        </div>
-
-                        <div class="status">
-                            ● Online
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- DETAILS -->
-
-                <div class="details">
-
-                    <h2>
-                        Berechnete Position
-                    </h2>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            X-Position
-                        </span>
-
-                        <span id="x">
-                            7.32 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Y-Position
-                        </span>
-
-                        <span id="y">
-                            5.28 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            RSSI Sensor A
-                        </span>
-
-                        <span id="rssiA">
-                            -58 dBm
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            RSSI Sensor B
-                        </span>
-
-                        <span id="rssiB">
-                            -69 dBm
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Entfernung A
-                        </span>
-
-                        <span id="distanceA">
-                            4.1 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Entfernung B
-                        </span>
-
-                        <span id="distanceB">
-                            6.3 m
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- GENAUIGKEIT -->
-
-                <div class="accuracy">
-
-                    <div class="accuracy-title">
-                        Aktuelle Messgenauigkeit
-                    </div>
-
-                    <div
-                        class="accuracy-value"
-                        id="accuracy"
-                    >
-                        Testbetrieb
-                    </div>
-
-                </div>
-
-
-                <!-- BUTTON -->
-
-                <button
-                    class="button"
-                    onclick="locateDevice()"
-                >
-                    Gerät lokalisieren
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
-
+            </section>
+        </main>
+    </div>
 </div>
 
+<div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Neu</h2><button class="icon-button" id="modalClose">×</button></div><div id="modalBody"></div></div></div>
 
 <script src="app.js"></script>
-
 </body>
-
 </html>

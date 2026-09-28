@@ -1,39 +1,38 @@
 services:
-
-  web:
+  php:
     build:
       context: .
       dockerfile: Dockerfile
-
-    container_name: medtrack_web
-
     ports:
-      - "8080:80"
-
+      - "${APP_PORT}:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ../Frontend:/var/www/html
       - ./php:/var/www/html/api
-
+      - ./database:/var/www/html/database
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
-    image: postgres:15
-
-    container_name: medtrack_db
-
+    image: mysql:8.0
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
-    ports:
-      - "5432:5432"
-
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - medtrack_data:/var/lib/postgresql/data
-      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql
-
+      - medtrack_db:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
 volumes:
-  medtrack_data:
+  medtrack_db:
