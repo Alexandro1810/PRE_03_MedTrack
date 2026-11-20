@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedTrack — Clinical Equipment Platform</title>
+<style>
+:root{
+ --nav:#111827;--nav2:#1b2537;--bg:#f6f8fb;--surface:#fff;--border:#e6eaf0;
+ --text:#172033;--muted:#7b8798;--blue:#2563eb;--blue-soft:#eef4ff;
+ --green:#16a34a;--green-soft:#eaf8ef;--amber:#c77b12;--amber-soft:#fff7e8;
+ --red:#dc3545;--red-soft:#fff0f1;--shadow:0 1px 2px #17203308,0 8px 24px #17203306;
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+
+/* login */
+.login{min-height:100vh;display:grid;grid-template-columns:53% 47%;background:#fff}
+.login-left{background:#101827;color:white;padding:54px 7vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.login-left:before{content:"";position:absolute;width:760px;height:760px;border:1px solid #ffffff0b;border-radius:50%;right:-350px;top:-180px;box-shadow:0 0 0 100px #ffffff03,0 0 0 200px #ffffff02}
+.brand{display:flex;align-items:center;gap:11px;font-weight:750;font-size:21px;position:relative;z-index:1}.mark{width:38px;height:38px;background:#2f6fed;border-radius:10px;display:grid;place-items:center;font-weight:900;color:#fff}
+.login-copy{position:relative;z-index:1}.login-copy h1{font-size:56px;line-height:1.02;letter-spacing:-2.8px;max-width:680px;margin:0 0 25px}.login-copy h1 span{color:#6ea1ff}.login-copy p{font-size:16px;line-height:1.75;color:#aeb9ca;max-width:590px}
+.login-features{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}.feature{border:1px solid #ffffff18;background:#ffffff08;padding:8px 11px;border-radius:7px;color:#cbd5e1;font-size:11px}
+.login-right{display:grid;place-items:center;padding:50px}.login-form{width:390px}.login-form h2{font-size:29px;letter-spacing:-.7px;margin:27px 0 7px}.login-form>p{color:var(--muted);margin:0 0 27px}.field{margin:0 0 16px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#344054}.field input,.field select{width:100%;border:1px solid #d8dee8;border-radius:8px;padding:12px 13px;outline:0;background:#fff}.field input:focus,.field select:focus{border-color:#5c8ff2;box-shadow:0 0 0 3px #dbe8ff}.primary{width:100%;border:0;background:#2563eb;color:#fff;border-radius:8px;padding:12px;font-weight:700}.primary:hover{background:#1e56d0}.login-error{height:17px;color:#d12e3d;font-size:12px;margin-top:10px}.demo{font-size:11px;text-align:center;color:#98a2b3;margin-top:14px}
+
+/* shell */
+.shell{min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:238px;background:var(--nav);color:#aab5c6;padding:20px 13px;display:flex;flex-direction:column;z-index:5}.side-brand{padding:2px 9px 27px;color:#fff}.side-brand .mark{width:35px;height:35px}.side-brand span{font-size:19px}.section-label{text-transform:uppercase;font-size:9px;letter-spacing:1.2px;color:#66758b;padding:14px 10px 7px}.nav button{display:flex;align-items:center;width:100%;border:0;background:transparent;color:#9eabbe;padding:10px 11px;border-radius:7px;margin:2px 0;text-align:left;font-size:12px;gap:11px}.nav button:hover{background:#ffffff08;color:#fff}.nav button.active{background:#202d43;color:#fff}.nav-icon{width:18px;text-align:center;font-size:14px;color:#8faef1}.side-user{margin-top:auto;border-top:1px solid #263248;padding:15px 7px 0;display:flex;gap:9px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:#dce9ff;color:#2458bc;display:grid;place-items:center;font-size:10px;font-weight:800}.side-user b{display:block;color:#fff;font-size:11px}.side-user span{color:#718096;font-size:10px}.logout{margin-top:12px;border:0;background:none;color:#8592a6;text-align:left;padding:8px;font-size:11px}.main{margin-left:238px;min-height:100vh}.topbar{height:66px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px}.search{width:310px;background:#f8fafc;border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:#475569;outline:0;font-size:12px}.top-right{display:flex;align-items:center;gap:19px;color:#667085;font-size:11px}.online{display:flex;gap:6px;align-items:center}.green-dot{width:7px;height:7px;background:#2bb673;border-radius:50%}.bell{font-size:17px}.page{padding:27px 29px;max-width:1500px;margin:auto}.page-title{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px}.page-title h1{font-size:25px;letter-spacing:-.6px;margin:0}.page-title p{color:var(--muted);margin:5px 0 0;font-size:12px}.actions{display:flex;gap:8px}.btn{border:1px solid #d9e0ea;background:#fff;color:#344054;border-radius:7px;padding:9px 12px;font-size:11px}.btn-blue{border:0;background:#2563eb;color:white;border-radius:7px;padding:9px 12px;font-weight:700;font-size:11px}.btn-blue:hover{background:#1d55d0}
+
+/* dashboard */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}.metric{background:#fff;border:1px solid var(--border);border-radius:9px;padding:17px 18px;box-shadow:var(--shadow)}.metric-top{display:flex;justify-content:space-between;color:#778399;font-size:11px}.metric-icon{color:#7791c8}.metric-value{font-size:27px;font-weight:750;margin:8px 0 3px}.metric-note{font-size:10px;color:#8390a3}.metric-note.good{color:#16804b}.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(315px,.72fr);gap:16px}.card{background:#fff;border:1px solid var(--border);border-radius:9px;box-shadow:var(--shadow)}.card-head{height:58px;padding:0 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #edf0f4}.card-head h2{font-size:13px;margin:0}.subtle{font-size:10px;color:#8a95a5}.map-card{padding-bottom:14px}.map-wrap{height:420px;padding:28px 43px 34px}.map{position:relative;width:100%;height:100%;border:1px solid #aab5c5;background-color:#fbfcfe;background-image:linear-gradient(#e9edf3 1px,transparent 1px),linear-gradient(90deg,#e9edf3 1px,transparent 1px);background-size:10% 10%;overflow:hidden}.room-label{position:absolute;top:12px;left:12px;font-size:10px;color:#59677c;background:#fff;border:1px solid #e6eaf0;padding:6px 8px;border-radius:5px}.sensor{position:absolute;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;color:white;font-size:10px;font-weight:800;box-shadow:0 2px 7px #0002;z-index:3}.sensor small{position:absolute;top:35px;color:#64748b;white-space:nowrap;font-size:9px;font-weight:500}.sa{left:5%;bottom:7%;background:#7356d8}.sb{right:5%;top:7%;background:#138da1}.signal{position:absolute;left:57%;top:45%;width:230px;height:230px;border:1px dashed #9ebff5;border-radius:50%;transform:translate(-50%,-50%);opacity:.8}.device{position:absolute;left:57%;top:45%;width:46px;height:46px;border-radius:50%;background:#2764d9;border:4px solid #d8e7ff;color:white;display:grid;place-items:center;font-size:9px;font-weight:800;box-shadow:0 4px 15px #2764d944;transition:.45s;z-index:4}.device span{position:absolute;top:52px;background:#fff;border:1px solid #e2e7ef;color:#344054;border-radius:5px;padding:5px 7px;font-size:9px;white-space:nowrap;font-weight:500}.map-meta{display:flex;justify-content:space-between;padding:0 18px;color:#8390a3;font-size:9px}.legend{display:flex;gap:15px}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}.focus{padding:17px}.status-line{display:flex;justify-content:space-between;align-items:start}.status-badge{font-size:9px;padding:4px 7px;border-radius:20px;background:var(--green-soft);color:#167542;font-weight:800}.focus-name{font-size:16px;font-weight:750}.focus-type{font-size:10px;color:#8994a5;margin-top:3px}.info{margin-top:14px}.info-row{display:flex;justify-content:space-between;border-bottom:1px solid #edf0f4;padding:10px 0;font-size:10px}.info-row span{color:#7b8798}.info-row b{font-weight:700}.accuracy{background:#f2fbf6;border:1px solid #d7f0df;padding:11px;border-radius:6px;margin-top:13px}.accuracy span{display:block;color:#43835d;font-size:9px}.accuracy b{font-size:19px;color:#197044;display:block;margin-top:2px}.full{width:100%;margin-top:11px}.notice{margin:15px 0;background:#fff8eb;border:1px solid #f5dfb8;padding:10px;border-radius:6px;font-size:10px;color:#8b641e}.table-card{margin-top:16px;padding-bottom:4px}.table{width:100%;border-collapse:collapse}.table th{text-align:left;color:#8994a5;font-size:9px;text-transform:uppercase;letter-spacing:.45px;padding:11px 15px;border-bottom:1px solid var(--border)}.table td{padding:12px 15px;border-bottom:1px solid #eff2f5;font-size:10px}.device-cell{display:flex;align-items:center;gap:9px}.device-avatar{width:29px;height:29px;border-radius:6px;background:#eef4ff;color:#2861c9;display:grid;place-items:center;font-size:8px;font-weight:800}.pill{padding:4px 7px;border-radius:20px;font-size:8px;font-weight:800}.pill.green{background:#eaf8ef;color:#197044}.pill.orange{background:#fff2df;color:#a36213}.pill.gray{background:#f0f2f5;color:#657184}
+
+/* other pages */
+.page-card{padding:0}.empty-title{padding:30px}.user-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.user-card{background:#fff;border:1px solid var(--border);border-radius:9px;padding:16px;box-shadow:var(--shadow)}.user-head{display:flex;gap:10px;align-items:center}.user-head .avatar{width:40px;height:40px}.user-head b{font-size:12px}.user-head p{margin:3px 0 0;color:#8994a5;font-size:10px}.role{display:inline-block;margin-top:15px;padding:5px 7px;background:#eef4ff;color:#245cc2;border-radius:5px;font-size:9px;font-weight:700}.activity{padding:16px 18px}.event{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid #edf0f4}.event:last-child{border:0}.event-dot{width:8px;height:8px;border-radius:50%;background:#3c73db;margin-top:4px;flex:none}.event p{margin:0;font-size:10px}.event small{color:#98a2b3;font-size:9px}.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.room-card{background:#fff;border:1px solid var(--border);border-radius:9px;padding:16px;box-shadow:var(--shadow)}.room-card h3{font-size:13px}.room-card p{font-size:10px;color:#8792a3;margin:5px 0 14px}.room-status{font-size:9px;color:#177145;background:#eaf8ef;padding:4px 7px;border-radius:20px;font-weight:700}
+
+/* modal */
+.modal{position:fixed;inset:0;background:#0f172a66;display:grid;place-items:center;z-index:20}.modal-box{width:430px;background:#fff;border-radius:10px;padding:21px;box-shadow:0 25px 70px #0003}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.modal-head h2{font-size:16px}.close{background:none;border:0;font-size:20px;color:#8994a5}
+@media(max-width:1050px){.metrics{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.user-grid,.rooms-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.sidebar{width:62px}.side-brand span,.section-label,.nav button span,.side-user div:not(.avatar),.logout{display:none}.main{margin-left:62px}.topbar{padding:0 14px}.search{width:200px}.page{padding:18px 14px}.metrics{grid-template-columns:1fr}.user-grid,.rooms-grid{grid-template-columns:1fr}.map-wrap{padding:25px 25px 32px}}
+</style>
+</head>
+<body>
+
+<section id="login" class="login">
+  <div class="login-left">
+    <div class="brand"><div class="mark">M</div>MedTrack</div>
+    <div class="login-copy">
+      <h1>Find it.<br><span>Track it.</span><br>Use it.</h1>
+      <p>Eine zentrale Plattform für die Ortung und Verwaltung mobiler medizinischer Geräte. Entwickelt für einen schnellen Überblick im klinischen Alltag.</p>
+      <div class="login-features"><span class="feature">Indoor Positioning</span><span class="feature">BLE / RSSI</span><span class="feature">ESP32 Infrastructure</span><span class="feature">Device Management</span></div>
+    </div>
+    <div style="color:#64748b;font-size:10px;position:relative;z-index:1">MEDTRACK · INTERNAL SYSTEM · v0.9 PROTOTYPE</div>
+  </div>
+  <div class="login-right">
+    <div class="login-form">
+      <div class="brand" style="color:#172033"><div class="mark">M</div>MedTrack</div>
+      <h2>Anmelden</h2><p>Zugang zur MedTrack-Zentrale</p>
+      <form id="loginForm">
+        <div class="field"><label>Benutzername</label><input id="loginUser" placeholder="admin" autocomplete="username" required></div>
+        <div class="field"><label>Passwort</label><input id="loginPass" type="password" placeholder="Passwort" autocomplete="current-password" required></div>
+        <button class="primary">Anmelden</button><div id="loginError" class="login-error"></div>
+      </form>
+      <div class="demo">Prototyp-Zugang · admin / admin</div>
+    </div>
+  </div>
+</section>
+
+<section id="shell" class="shell hidden">
+<aside class="sidebar">
+  <div class="brand side-brand"><div class="mark">M</div><span>MedTrack</span></div>
+  <div class="section-label">Arbeitsbereich</div>
+  <nav class="nav">
+    <button class="active" onclick="page('dashboard',this)"><i class="nav-icon">▦</i><span>Dashboard</span></button>
+    <button onclick="page('devices',this)"><i class="nav-icon">◉</i><span>Geräte</span></button>
+    <button onclick="page('rooms',this)"><i class="nav-icon">⌗</i><span>Räume & Ortung</span></button>
+  </nav>
+  <div class="section-label">Administration</div>
+  <nav class="nav">
+    <button onclick="page('users',this)"><i class="nav-icon">♙</i><span>Benutzer</span></button>
+    <button onclick="page('activity',this)"><i class="nav-icon">◷</i><span>Aktivitätsprotokoll</span></button>
+  </nav>
+  <div class="side-user"><div class="avatar">AM</div><div><b>Alexander M.</b><span>Administrator</span></div></div>
+  <button class="logout" onclick="logout()">↪ &nbsp; Abmelden</button>
+</aside>
+<main class="main">
+<header class="topbar"><input class="search" placeholder="Suchen …" oninput="searchDevices(this.value)"><div class="top-right"><div class="online"><i class="green-dot"></i> System online</div><div class="bell">♧</div><span>DE</span></div></header>
+
+<!-- dashboard -->
+<div id="dashboard" class="page">
+<div class="page-title"><div><h1>Dashboard</h1><p>Live-Übersicht der MedTrack-Infrastruktur</p></div><div class="actions"><button class="btn" onclick="locate()">↻ Aktualisieren</button><button class="btn-blue" onclick="openDevice()">＋ Gerät registrieren</button></div></div>
+<div class="metrics">
+<div class="metric"><div class="metric-top"><span>Geräte gesamt</span><span class="metric-icon">◉</span></div><div class="metric-value">24</div><div class="metric-note good">↑ 3 heute aktiv</div></div>
+<div class="metric"><div class="metric-top"><span>Verfügbar</span><span class="metric-icon">✓</span></div><div class="metric-value">18</div><div class="metric-note">75 % des Bestands</div></div>
+<div class="metric"><div class="metric-top"><span>In Verwendung</span><span class="metric-icon">↗</span></div><div class="metric-value">4</div><div class="metric-note">2 auf Station 2</div></div>
+<div class="metric"><div class="metric-top"><span>Wartung</span><span class="metric-icon">!</span></div><div class="metric-value">2</div><div class="metric-note" style="color:#a36213">Prüfung erforderlich</div></div>
+</div>
+<div class="layout">
+<div class="card map-card"><div class="card-head"><h2>Live-Ortung · Raum 01</h2><span class="subtle">12 × 11 m · aktualisiert vor 2 s</span></div>
+<div class="map-wrap"><div class="map"><div class="room-label">RAUM 01 · STATION 2</div><div class="signal"></div><div class="sensor sa">A<small>ESP32 A</small></div><div class="sensor sb">B<small>ESP32 B</small></div><div id="device" class="device">EKG<span>EKG #17 · 6,8 m / 6,4 m</span></div></div></div>
+<div class="map-meta"><div class="legend"><span><i style="background:#7356d8"></i>Sensor A</span><span><i style="background:#138da1"></i>Sensor B</span><span><i style="background:#2764d9"></i>Gerät</span></div><span>Trilateration aktiv · Genauigkeit ±0,32 m</span></div></div>
+<div class="card"><div class="card-head"><h2>Gerätedetails</h2><span class="subtle">LIVE</span></div><div class="focus">
+<div class="status-line"><div><div class="focus-name">EKG #17</div><div class="focus-type">Elektrokardiograph · MT-00417</div></div><span class="status-badge">VERFÜGBAR</span></div>
+<div class="notice"><b>Ortung stabil</b><br>Das Gerät wird aktuell von beiden Sensoren erkannt.</div>
+<div class="info"><div class="info-row"><span>Standort</span><b>Raum 01</b></div><div class="info-row"><span>Koordinaten</span><b id="coords">6,8 m / 6,4 m</b></div><div class="info-row"><span>Entfernung A</span><b id="distA">4,1 m</b></div><div class="info-row"><span>Entfernung B</span><b id="distB">6,3 m</b></div><div class="info-row"><span>Letztes Signal</span><b>vor 2 Sek.</b></div></div>
+<div class="accuracy"><span>Aktuelle Messgenauigkeit</span><b id="accuracy">± 0,32 m</b></div><button class="btn-blue full" onclick="locate()">⌖ Position neu berechnen</button>
+</div></div></div>
+<div class="card table-card"><div class="card-head"><h2>Zuletzt erkannte Geräte</h2><span class="subtle">24 Geräte im System</span></div>
+<table class="table" id="recentTable"><thead><tr><th>Gerät</th><th>Standort</th><th>Status</th><th>Erkannt</th><th></th></tr></thead><tbody>
+<tr><td><div class="device-cell"><div class="device-avatar">EKG</div><b>EKG #17</b></div></td><td>Raum 01</td><td><span class="pill green">Verfügbar</span></td><td>vor 2 Sek.</td><td><button class="btn" onclick="locate()">Lokalisieren</button></td></tr>
+<tr><td><div class="device-cell"><div class="device-avatar">IP</div><b>Infusionspumpe #04</b></div></td><td>Raum 03</td><td><span class="pill orange">In Verwendung</span></td><td>vor 8 Sek.</td><td><button class="btn">Details</button></td></tr>
+<tr><td><div class="device-cell"><div class="device-avatar">EKG</div><b>EKG #12</b></div></td><td>Lager</td><td><span class="pill green">Verfügbar</span></td><td>vor 15 Sek.</td><td><button class="btn">Details</button></td></tr>
+</tbody></table></div>
+</div>
+
+<!-- devices -->
+<div id="devices" class="page hidden"><div class="page-title"><div><h1>Geräte</h1><p>Registrierte medizinische Geräte und BLE-Tags</p></div><button class="btn-blue" onclick="openDevice()">＋ Gerät registrieren</button></div>
+<div class="card page-card"><table class="table" id="deviceTable"><thead><tr><th>Gerät</th><th>Typ</th><th>Standort</th><th>Status</th><th>BLE-Tag</th><th>Letztes Signal</th></tr></thead><tbody>
+<tr><td><div class="device-cell"><div class="device-avatar">EKG</div><b>EKG #17</b></div></td><td>Elektrokardiograph</td><td>Raum 01</td><td><span class="pill green">Verfügbar</span></td><td>MT-00417</td><td>2 Sek.</td></tr>
+<tr><td><div class="device-cell"><div class="device-avatar">IP</div><b>Infusionspumpe #04</b></div></td><td>Infusionspumpe</td><td>Raum 03</td><td><span class="pill orange">In Verwendung</span></td><td>MT-00104</td><td>8 Sek.</td></tr>
+<tr><td><div class="device-cell"><div class="device-avatar">EKG</div><b>EKG #12</b></div></td><td>Elektrokardiograph</td><td>Lager</td><td><span class="pill green">Verfügbar</span></td><td>MT-00412</td><td>15 Sek.</td></tr>
+<tr><td><div class="device-cell"><div class="device-avatar">BP</div><b>Blutdruckmonitor #08</b></div></td><td>Monitoring</td><td>Raum 02</td><td><span class="pill gray">Wartung</span></td><td>MT-00008</td><td>nicht aktiv</td></tr>
+</tbody></table></div></div>
+
+<!-- rooms -->
+<div id="rooms" class="page hidden"><div class="page-title"><div><h1>Räume & Ortung</h1><p>Überwachte Bereiche und Sensor-Infrastruktur</p></div></div>
+<div class="metrics"><div class="metric"><div class="metric-top"><span>Überwachte Räume</span></div><div class="metric-value">6</div><div class="metric-note good">Alle Bereiche online</div></div><div class="metric"><div class="metric-top"><span>ESP32 Sensoren</span></div><div class="metric-value">12</div><div class="metric-note">2 pro Raum</div></div><div class="metric"><div class="metric-top"><span>Signalabdeckung</span></div><div class="metric-value">98,7%</div><div class="metric-note">Aktuelle Messung</div></div><div class="metric"><div class="metric-top"><span>Mittlere Genauigkeit</span></div><div class="metric-value">0,41 m</div><div class="metric-note">RSSI / Trilateration</div></div></div>
+<div class="rooms-grid">
+<div class="room-card"><h3>Raum 01</h3><p>Station 2 · 12 × 11 m</p><span class="room-status">● ONLINE · 4 GERÄTE</span></div>
+<div class="room-card"><h3>Raum 02</h3><p>Station 2 · 10 × 9 m</p><span class="room-status">● ONLINE · 5 GERÄTE</span></div>
+<div class="room-card"><h3>Raum 03</h3><p>Station 2 · 12 × 10 m</p><span class="room-status">● ONLINE · 3 GERÄTE</span></div>
+<div class="room-card"><h3>Lager</h3><p>Materiallager · 15 × 8 m</p><span class="room-status">● ONLINE · 8 GERÄTE</span></div>
+<div class="room-card"><h3>Behandlungsraum</h3><p>Station 1 · 9 × 8 m</p><span class="room-status">● ONLINE · 2 GERÄTE</span></div>
+<div class="room-card"><h3>Technikraum</h3><p>Infrastruktur · 7 × 6 m</p><span class="room-status">● ONLINE · 2 GERÄTE</span></div>
+</div></div>
+
+<!-- users -->
+<div id="users" class="page hidden"><div class="page-title"><div><h1>Benutzer</h1><p>Benutzerkonten und Rollen</p></div><button class="btn-blue" onclick="openUser()">＋ Benutzer hinzufügen</button></div>
+<div class="user-grid" id="userGrid">
+<div class="user-card"><div class="user-head"><div class="avatar">AM</div><div><b>Alexander M.</b><p>alexander@medtrack.local</p></div></div><span class="role">Administrator</span></div>
+<div class="user-card"><div class="user-head"><div class="avatar" style="background:#e8f7ed;color:#197044">LS</div><div><b>Lisa Schneider</b><p>lisa@medtrack.local</p></div></div><span class="role">Stationsleitung</span></div>
+<div class="user-card"><div class="user-head"><div class="avatar" style="background:#fff3db;color:#a36213">MK</div><div><b>Martin König</b><p>martin@medtrack.local</p></div></div><span class="role">Mitarbeiter</span></div>
+</div></div>
+
+<!-- activity -->
+<div id="activity" class="page hidden"><div class="page-title"><div><h1>Aktivitätsprotokoll</h1><p>Nachvollziehbare Ereignisse im MedTrack-System</p></div></div>
+<div class="layout"><div class="card"><div class="card-head"><h2>Letzte Aktivitäten</h2><span class="subtle">Heute</span></div><div class="activity">
+<div class="event"><i class="event-dot"></i><div><p><b>EKG #17</b> wurde in Raum 01 erkannt.</p><small>vor 2 Minuten · ESP32 A / B</small></div></div>
+<div class="event"><i class="event-dot" style="background:#20a464"></i><div><p><b>Lisa Schneider</b> hat Infusionspumpe #04 ausgeliehen.</p><small>vor 12 Minuten · Station 2</small></div></div>
+<div class="event"><i class="event-dot" style="background:#d99024"></i><div><p><b>Blutdruckmonitor #08</b> wurde als Wartung markiert.</p><small>vor 31 Minuten · System</small></div></div>
+<div class="event"><i class="event-dot"></i><div><p><b>Alexander M.</b> hat sich angemeldet.</p><small>vor 48 Minuten · Web</small></div></div>
+</div></div>
+<div class="card"><div class="card-head"><h2>Systemstatus</h2></div><div class="activity"><div class="info-row"><span>Webanwendung</span><b style="color:#197044">Online</b></div><div class="info-row"><span>PostgreSQL</span><b style="color:#197044">Online</b></div><div class="info-row"><span>ESP32 Netzwerk</span><b style="color:#197044">12 / 12</b></div><div class="info-row"><span>BLE Gateway</span><b style="color:#197044">Online</b></div></div></div></div></div>
+</main>
+</section>
+
+<div id="deviceModal" class="modal hidden"><div class="modal-box"><div class="modal-head"><h2>Gerät registrieren</h2><button class="close" onclick="closeModal('deviceModal')">×</button></div><div class="field"><label>Gerätename</label><input id="newDeviceName" placeholder="z. B. EKG #25"></div><div class="field"><label>Gerätetyp</label><select><option>Elektrokardiograph</option><option>Infusionspumpe</option><option>Blutdruckmonitor</option><option>Sonstiges</option></select></div><div class="field"><label>BLE-Tag-ID</label><input placeholder="MT-00XXX"></div><button class="btn-blue" style="width:100%" onclick="addDevice()">Gerät registrieren</button></div></div>
+<div id="userModal" class="modal hidden"><div class="modal-box"><div class="modal-head"><h2>Benutzer hinzufügen</h2><button class="close" onclick="closeModal('userModal')">×</button></div><div class="field"><label>Name</label><input id="newUserName" placeholder="Max Mustermann"></div><div class="field"><label>E-Mail</label><input placeholder="max@medtrack.local"></div><div class="field"><label>Rolle</label><select><option>Mitarbeiter</option><option>Stationsleitung</option><option>Administrator</option></select></div><button class="btn-blue" style="width:100%" onclick="addUser()">Benutzer anlegen</button></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();if($("loginUser").value==="admin"&&$("loginPass").value==="admin"){$("login").classList.add("hidden");$("shell").classList.remove("hidden")}else $("loginError").textContent="Benutzername oder Passwort ist nicht korrekt."});
+function logout(){$("shell").classList.add("hidden");$("login").classList.remove("hidden");$("loginUser").value="";$("loginPass").value="";$("loginError").textContent=""}
+function page(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");window.scrollTo(0,0)}
+function locate(){let d=$("device"),x=42+Math.random()*25,y=29+Math.random()*31;d.style.left=x+"%";d.style.top=y+"%";let px=(x/100*12).toFixed(1),py=((100-y)/100*11).toFixed(1),a=(.7+Math.random()*4).toFixed(1),b=(1.2+Math.random()*5).toFixed(1),acc=(.25+Math.random()*.22).toFixed(2);$("coords").textContent=px.replace(".",",")+" m / "+py.replace(".",",")+" m";$("distA").textContent=a.replace(".",",")+" m";$("distB").textContent=b.replace(".",",")+" m";$("accuracy").textContent="± "+acc.replace(".",",")+" m";d.querySelector("span").textContent="EKG #17 · "+px.replace(".",",")+" m / "+py.replace(".",",")+" m"}
+function openDevice(){$("deviceModal").classList.remove("hidden")}function openUser(){$("userModal").classList.remove("hidden")}function closeModal(id){$(id).classList.add("hidden")}
+function addDevice(){let n=$("newDeviceName").value.trim()||"Neues Gerät",tr=document.createElement("tr");tr.innerHTML=`<td><div class="device-cell"><div class="device-avatar">NEW</div><b>${n}</b></div></td><td>Medizinisches Gerät</td><td>Noch nicht zugeordnet</td><td><span class="pill green">Verfügbar</span></td><td>Wird zugewiesen</td><td>gerade eben</td>`;$("deviceTable").querySelector("tbody").prepend(tr);closeModal("deviceModal");$("newDeviceName").value=""}
+function addUser(){let n=$("newUserName").value.trim()||"Neuer Benutzer",i=n.split(" ").map(x=>x[0]).join("").slice(0,2).toUpperCase(),c=document.createElement("div");c.className="user-card";c.innerHTML=`<div class="user-head"><div class="avatar">${i}</div><div><b>${n}</b><p>${n.toLowerCase().replaceAll(" ",".")}@medtrack.local</p></div></div><span class="role">Mitarbeiter</span>`;$("userGrid").append(c);closeModal("userModal");$("newUserName").value=""}
+function searchDevices(v){document.querySelectorAll("#deviceTable tbody tr").forEach(r=>r.style.display=!v||r.innerText.toLowerCase().includes(v.toLowerCase())?"":"none")}
+</script>
+</body>
+</html>
