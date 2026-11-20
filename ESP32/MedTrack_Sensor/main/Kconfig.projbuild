@@ -1,0 +1,101 @@
+menu "MedTrack Sensor"
+
+    config MEDTRACK_SENSOR_ID
+        string "Sensor-ID (A, B oder C)"
+        default "A"
+        help
+            Kennung dieses Sensors. Muss in der Datenbanktabelle "sensors"
+            existieren. Die Sensoren A, B und C bekommen dieselbe Firmware,
+            nur diese Einstellung ist verschieden.
+
+    config MEDTRACK_WIFI_SSID
+        string "WLAN-Name (SSID)"
+        default "MedTrack"
+        help
+            Der ESP32 unterstuetzt nur 2,4-GHz-WLAN. Schul-WLANs mit
+            Benutzeranmeldung (WPA2-Enterprise) funktionieren nicht -
+            dafuer einen eigenen Router oder Handy-Hotspot verwenden.
+
+    config MEDTRACK_WIFI_PASSWORD
+        string "WLAN-Passwort"
+        default ""
+        help
+            Leer lassen fuer ein offenes WLAN.
+
+    config MEDTRACK_SERVER_URL
+        string "Server-URL"
+        default "http://192.168.0.100:8080/api/sensors/report.php"
+        help
+            Adresse des Report-Endpunkts im Backend. Statt "localhost" die
+            IP-Adresse des Laptops eintragen, auf dem docker compose laeuft
+            (PowerShell: ipconfig -> IPv4-Adresse).
+
+    config MEDTRACK_API_KEY
+        string "API-Key"
+        default "medtrack-sensor-key"
+        help
+            Muss mit MEDTRACK_API_KEY in Backend/.env uebereinstimmen.
+
+    config MEDTRACK_TAG_NAME_PREFIX
+        string "Namens-Prefix der BLE-Tags"
+        default "MT-"
+        help
+            Alle BLE-Geraete, deren Name so beginnt, werden als Tag erkannt
+            (z. B. "MT-01"). Leer lassen, um nur die MAC-Liste zu verwenden.
+
+    config MEDTRACK_TAG_MACS
+        string "Zusaetzliche Tag-MAC-Adressen"
+        default ""
+        help
+            Kommagetrennte Liste fuer gekaufte Beacons ohne passenden Namen,
+            z. B. "AC:23:3F:12:34:56, AC:23:3F:65:43:21". In der Datenbank
+            steht dann die MAC-Adresse als tag_id.
+
+    config MEDTRACK_ACTIVE_SCAN
+        bool "Aktiver Scan"
+        default n
+        help
+            Fordert zusaetzlich Scan-Response-Pakete an. Nur noetig, wenn ein
+            Beacon seinen Namen ausschliesslich in der Scan-Response sendet.
+
+    config MEDTRACK_BEACON_SEARCH
+        bool "Beacon-Suche (MAC-Adresse herausfinden)"
+        default y
+        help
+            Gibt alle 5 s alle BLE-Geraete in der Naehe mit MAC-Adresse,
+            Signalstaerke und Typ (iBeacon/Eddystone) im Monitor aus.
+            Den Beacon direkt neben den ESP32 legen - das Geraet mit dem
+            staerksten Signal ist der Beacon. Seine MAC-Adresse dann unter
+            "Zusaetzliche Tag-MAC-Adressen" eintragen und die Suche wieder
+            ausschalten.
+
+    config MEDTRACK_BEACON_SEARCH_MIN_RSSI
+        int "Beacon-Suche: nur Geraete mit mindestens ... dBm anzeigen"
+        depends on MEDTRACK_BEACON_SEARCH
+        range -100 0
+        default -60
+        help
+            -60 dBm entspricht ungefaehr weniger als einem Meter Abstand.
+            So werden Handys und Laptops weiter weg ausgeblendet.
+
+    config MEDTRACK_REPORT_INTERVAL_MS
+        int "Sendeintervall (ms)"
+        range 500 60000
+        default 2000
+
+    config MEDTRACK_RSSI_WINDOW_MS
+        int "Zeitfenster fuer den RSSI-Median (ms)"
+        range 1000 30000
+        default 4000
+        help
+            Aus allen Messwerten dieses Zeitfensters wird der Median
+            gebildet. Groesser = ruhiger, aber traeger.
+
+    config MEDTRACK_MIN_SAMPLES
+        int "Mindestanzahl Messwerte pro Tag"
+        range 1 30
+        default 3
+        help
+            Tags mit weniger Messwerten im Zeitfenster werden nicht gemeldet.
+
+endmenu

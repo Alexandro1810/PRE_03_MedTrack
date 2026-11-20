@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "MedTrack Tag",
+      "description": "Build-Ordner ausserhalb von OneDrive: ESP-IDF 6.1 kann nicht in Ordnern bauen, deren Pfad mehrmals ' - ' enthaelt (z. B. 'OneDrive - HTL Krems/Klassen - Schule').",
+      "generator": "Ninja",
+      "binaryDir": "C:/esp/build/MedTrack_Tag"
+    }
+  ]
+}

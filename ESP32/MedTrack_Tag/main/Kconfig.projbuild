@@ -1,0 +1,19 @@
+menu "MedTrack Tag"
+
+    config MEDTRACK_TAG_NAME
+        string "Name des Tags"
+        default "MT-01"
+        help
+            Wird per BLE ausgesendet. Muss mit dem Namens-Prefix der
+            Sensoren beginnen und in der Datenbank als tag_id eines
+            Geraets eingetragen sein.
+
+    config MEDTRACK_ADV_INTERVAL_MS
+        int "Sendeintervall (ms)"
+        range 20 2000
+        default 100
+        help
+            Kuerzer = mehr Messwerte pro Sekunde (genauere Ortung),
+            aber hoeherer Stromverbrauch.
+
+endmenu

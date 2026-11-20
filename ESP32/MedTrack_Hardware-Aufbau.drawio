@@ -1,0 +1,103 @@
+<mxfile host="drawio">
+  <diagram id="aufbau" name="Hardware-Aufbau">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="980" pageHeight="640" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MedTrack – Hardware-Aufbau im Testraum (Draufsicht)" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=18;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="room" value="Testraum" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F7F9FC;strokeColor=#7F8C9D;dashed=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="620" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="A" value="&lt;b&gt;ESP32 A&lt;/b&gt;&lt;br&gt;Empfänger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1F2A44;strokeColor=#1F2A44;fontColor=#FFFFFF;arcSize=8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="70" y="90" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pA" value="USB-Netzteil 5 V" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B59B3B;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="70" y="185" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="B" value="&lt;b&gt;ESP32 B&lt;/b&gt;&lt;br&gt;Empfänger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1F2A44;strokeColor=#1F2A44;fontColor=#FFFFFF;arcSize=8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="510" y="90" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pB" value="USB-Netzteil 5 V" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B59B3B;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="510" y="185" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="C" value="&lt;b&gt;ESP32 C&lt;/b&gt;&lt;br&gt;Empfänger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1F2A44;strokeColor=#1F2A44;fontColor=#FFFFFF;arcSize=8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="290" y="400" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pC" value="USB-Netzteil 5 V" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B59B3B;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="495" y="409" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="dev" value="Med. Gerät&lt;br&gt;(Test)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2B5BA8;dashed=0;verticalAlign=bottom;align=left;spacingBottom=4;spacingLeft=6;fontColor=#2B5BA8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="255" y="210" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tag" value="&lt;b&gt;BLE-Beacon&lt;/b&gt;&lt;br&gt;nRF52810 · CR2032" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#2B5BA8;arcSize=20;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="280" y="225" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="router" value="&lt;b&gt;WLAN-Router / Handy-Hotspot&lt;/b&gt;&lt;br&gt;2,4 GHz, WPA2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#4E8A3E;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="90" width="210" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="pc" value="&lt;b&gt;Laptop&lt;/b&gt;&lt;br&gt;Docker: PHP-Backend + PostgreSQL&lt;br&gt;Browser: Raumkarte" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7B5A93;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="300" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="leg" value="&lt;b&gt;Legende&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F8C9D;align=left;verticalAlign=top;spacing=8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="400" width="210" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lt1" value="Kabel (Strom)" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="428" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lt2" value="Bluetooth LE (Funk)" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="448" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lt3" value="WLAN (Funk)" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="468" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="&lt;b&gt;Verkabelung:&lt;/b&gt; An den Pins der ESP32 wird nichts angeschlossen – die Antenne für Bluetooth und WLAN ist im ESP32-Modul eingebaut. Jeder ESP32 braucht nur Strom über Micro-USB (USB-Netzteil, Powerbank oder Laptop). Zum Flashen wird er mit einem Micro-USB-Kabel &lt;i&gt;mit Datenleitung&lt;/i&gt; an den Laptop angesteckt.&lt;br&gt;&lt;b&gt;Datenweg:&lt;/b&gt; A, B und C messen die Signalstärke des Beacons und schicken sie alle 2 s per WLAN (HTTP-POST) an das Backend am Laptop.&lt;br&gt;&lt;b&gt;Beacon:&lt;/b&gt; läuft mit einer CR2032-Knopfzelle, sendet ca. alle 200 ms, keine Kabel.&lt;br&gt;&lt;b&gt;Aufstellung:&lt;/b&gt; A, B und C an bekannten Positionen (x/y in m) möglichst weit auseinander, ca. 1–2 m hoch, nicht direkt hinter Metall." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F8C9D;align=left;verticalAlign=top;spacing=8;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="510" width="890" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uA" value="Micro-USB" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#333333;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="A" target="pA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uB" value="Micro-USB" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#333333;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="B" target="pB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uC" value="Micro-USB" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#333333;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="C" target="pC">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bA" value="BLE" style="endArrow=classic;html=1;dashed=1;dashPattern=2 3;strokeWidth=2;strokeColor=#2B5BA8;fontColor=#2B5BA8;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="tag" target="A">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bB" value="BLE" style="endArrow=classic;html=1;dashed=1;dashPattern=2 3;strokeWidth=2;strokeColor=#2B5BA8;fontColor=#2B5BA8;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="tag" target="B">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bC" value="BLE" style="endArrow=classic;html=1;dashed=1;dashPattern=2 3;strokeWidth=2;strokeColor=#2B5BA8;fontColor=#2B5BA8;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1" source="tag" target="C">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w1" value="WLAN" style="endArrow=classic;html=1;dashed=1;dashPattern=8 4;strokeWidth=2;strokeColor=#4E8A3E;fontColor=#4E8A3E;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#FFFFFF;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.15;exitDx=0;exitDy=0;" edge="1" parent="1" source="room" target="router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w2" value="WLAN" style="endArrow=classic;html=1;dashed=1;dashPattern=8 4;strokeWidth=2;strokeColor=#4E8A3E;fontColor=#4E8A3E;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#FFFFFF;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="router" target="pc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#333333;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="732" y="438" as="sourcePoint" />
+            <mxPoint x="772" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l2" value="" style="endArrow=none;html=1;dashed=1;dashPattern=2 3;strokeWidth=2;strokeColor=#2B5BA8;fontColor=#2B5BA8;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#F7F9FC;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="732" y="458" as="sourcePoint" />
+            <mxPoint x="772" y="458" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l3" value="" style="endArrow=none;html=1;dashed=1;dashPattern=8 4;strokeWidth=2;strokeColor=#4E8A3E;fontColor=#4E8A3E;fontFamily=Arial;fontSize=12;fontSize=10;labelBackgroundColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="732" y="478" as="sourcePoint" />
+            <mxPoint x="772" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
