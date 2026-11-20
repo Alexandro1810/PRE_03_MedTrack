@@ -1,33 +1,27 @@
 <?php
 
-session_start();
+require_once __DIR__ . "/../helpers.php";
 
-header(
-    'Content-Type: application/json'
-);
 
-if (!isset($_SESSION['user_id'])) {
+start_session();
 
-    http_response_code(401);
 
-    echo json_encode([
-        'loggedIn' => false
-    ]);
+if (!isset($_SESSION["user_id"])) {
 
-    exit;
+    json_response([
+        "success" => false,
+        "loggedIn" => false
+    ], 401);
 }
 
-echo json_encode([
-    'loggedIn' => true,
 
-    'user' => [
-        'id' =>
-            $_SESSION['user_id'],
+json_response([
+    "success" => true,
+    "loggedIn" => true,
 
-        'username' =>
-            $_SESSION['username'],
-
-        'role' =>
-            $_SESSION['role']
+    "user" => [
+        "id" => $_SESSION["user_id"],
+        "username" => $_SESSION["username"],
+        "role" => $_SESSION["role"]
     ]
 ]);

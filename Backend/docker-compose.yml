@@ -7,8 +7,16 @@ services:
 
     container_name: medtrack_web
 
+    # Port 8080 muss auch von den ESP32 im WLAN erreichbar sein
     ports:
       - "8080:80"
+
+    environment:
+      DB_HOST: db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      MEDTRACK_API_KEY: ${MEDTRACK_API_KEY}
 
     volumes:
       - ../Frontend:/var/www/html
@@ -16,6 +24,7 @@ services:
 
     depends_on:
       - db
+
 
   db:
     image: postgres:15
@@ -32,7 +41,8 @@ services:
 
     volumes:
       - medtrack_data:/var/lib/postgresql/data
-      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
 
 
 volumes:

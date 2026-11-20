@@ -1,61 +1,64 @@
 <?php
 
-session_start();
+require_once __DIR__ . "/../database.php";
 
-header(
-    'Content-Type: application/json; charset=utf-8'
-);
+require_method("POST");
 
-require_once 'database.php';
+start_session();
 
-$username =
-    trim($_POST['username'] ?? '');
 
-$password =
-    $_POST['password'] ?? '';
+$username = trim($_POST["username"] ?? "");
+$password = $_POST["password"] ?? "";
 
-$stmt = $db->prepare(
-    'SELECT * FROM users WHERE username = ?'
+
+if ($username === "" || $password === "") {
+
+    json_response([
+        "success" => false,
+        "message" => "Benutzername und Passwort erforderlich."
+    ], 400);
+}
+
+
+$stmt = db()->prepare(
+    "SELECT id, username, password_hash, role
+     FROM users
+     WHERE username = ?"
 );
 
 $stmt->execute([$username]);
 
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = $stmt->fetch();
+
 
 if (
     !$user ||
     !password_verify(
         $password,
-        $user['password_hash']
+        $user["password_hash"]
     )
 ) {
 
-    http_response_code(401);
-
-    echo json_encode([
-        'success' => false,
-        'message' =>
-            'Benutzername oder Passwort falsch.'
-    ]);
-
-    exit;
+    json_response([
+        "success" => false,
+        "message" => "Benutzername oder Passwort falsch."
+    ], 401);
 }
+
 
 session_regenerate_id(true);
 
-$_SESSION['user_id'] =
-    $user['id'];
 
-$_SESSION['username'] =
-    $user['username'];
+$_SESSION["user_id"] = (int) $user["id"];
+$_SESSION["username"] = $user["username"];
+$_SESSION["role"] = $user["role"];
 
-$_SESSION['role'] =
-    $user['role'];
 
-echo json_encode([
-    'success' => true,
-    'username' =>
-        $user['username'],
-    'role' =>
-        $user['role']
+json_response([
+    "success" => true,
+    "user" => [
+        "id" => (int) $user["id"],
+        "username" => $user["username"],
+        "role" => $user["role"]
+    ]
 ]);
