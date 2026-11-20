@@ -4,66 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a5f68">
 
-    <title>MedTrack – Anmeldung</title>
+    <title>MedTrack – Geräteortung</title>
 
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%230e7c86'/%3E%3Cpath d='M16.5 8h7v8.5H32v7h-8.5V32h-7v-8.5H8v-7h8.5z' fill='white'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <!-- =========================
+     ICONS (SVG-Sprite)
+========================= -->
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+        <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#16a6ab"/>
+            <stop offset="1" stop-color="#0a5f68"/>
+        </linearGradient>
+    </defs>
+
+    <symbol id="i-logo" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="url(#logoGradient)"/>
+        <path d="M16.5 8h7v8.5H32v7h-8.5V32h-7v-8.5H8v-7h8.5z" fill="#fff"/>
+        <circle cx="20" cy="20" r="3.2" fill="#0e7c86"/>
+    </symbol>
+
+    <!-- Gerätetypen -->
+    <symbol id="i-ekg" viewBox="0 0 24 24"><path d="M2 12h4l2.5-6 4 12 3-9 1.5 3H22"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c3.2 4.2 6 7.4 6 10.6a6 6 0 0 1-12 0C6 10.4 8.8 7.2 12 3z"/><path d="M9.5 14.5A2.5 2.5 0 0 0 12 17"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-11h-6z"/></symbol>
+    <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 4v8m0 0-3-2m3 2 3-2"/><path d="M8.5 7C6 7 3 11 3 16c0 2 1 3 2.5 3S9 18 9 16v-6"/><path d="M15.5 7C18 7 21 11 21 16c0 2-1 3-2.5 3S15 18 15 16v-6"/></symbol>
+    <symbol id="i-probe" viewBox="0 0 24 24"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M7.5 14a4.5 4.5 0 0 1 9 0"/><path d="M12 14v7"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></symbol>
+
+    <!-- Oberfläche -->
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.2a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+    <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 10.5v6m-3-3h6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16 9.5"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-4-4"/><path d="M20 16H6l4 4"/></symbol>
+    <symbol id="i-nosignal" viewBox="0 0 24 24"><path d="m2 2 20 20"/><path d="M5 12.5a10 10 0 0 1 4.2-2.3m5.6 0a10 10 0 0 1 4.2 2.3M8.5 16a5 5 0 0 1 7 0"/><path d="M12 20h.01"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6m7.6-7.6a5.4 5.4 0 0 1 0 7.6M5.3 5.3a9.5 9.5 0 0 0 0 13.4m13.4-13.4a9.5 9.5 0 0 1 0 13.4"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14m6-12v14"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+</svg>
+
+
+<!-- =========================
      LOGIN
 ========================= -->
 
-<div id="loginScreen" class="login-screen">
+<div id="loginScreen" class="login" hidden>
 
-    <div class="login-box">
+    <section class="login-brand">
 
-        <div class="login-logo">
-            <div class="logo-icon">M</div>
-            <span>MedTrack</span>
+        <div class="brand brand-light">
+            <svg class="brand-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+            <span>MedTrack<small>Medizintechnik-Ortung</small></span>
         </div>
 
-        <h1>Anmeldung</h1>
+        <div class="login-claim">
 
-        <p class="login-description">
-            Bitte melde dich an, um MedTrack zu verwenden.
-        </p>
+            <p class="eyebrow">Indoor-Ortung für die Station</p>
 
-        <form id="loginForm">
+            <h1>Find it. Track it.<br><span>Use it.</span></h1>
 
-            <label for="username">
-                Benutzername
-            </label>
+            <p class="lead">
+                Mobile medizinische Geräte wie EKG oder Infusionspumpe in Echtzeit
+                finden – mit Verfügbarkeit, Ausleihe und lückenloser Historie.
+            </p>
 
-            <input
-                type="text"
-                id="username"
-                placeholder="Benutzername"
-                required
-            >
+            <ul class="login-features">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-radar"/></svg>BLE-Ortung über ESP32-Sensoren</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Verfügbarkeit auf einen Blick</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-history"/></svg>Ausleihe und Gerätehistorie</li>
+            </ul>
 
-            <label for="password">
-                Passwort
-            </label>
+        </div>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Passwort"
-                required
-            >
+        <!-- EKG-Linie wie auf einem Patientenmonitor -->
+        <svg class="ecg" viewBox="0 0 1200 120" aria-hidden="true">
+            <path class="ecg-base" d="M0 70h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90"/>
+            <path class="ecg-trace" pathLength="1000" d="M0 70h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90h60q12-14 24 0h20l6 9 10-62 10 77 8-24h32q20-22 40 0h90"/>
+        </svg>
 
-            <button type="submit" class="login-button">
+        <p class="login-foot">HTL Krems · Projekt 26/27-AHBGM-MedTrack</p>
+
+    </section>
+
+
+    <section class="login-panel">
+
+        <form id="loginForm" class="login-form">
+
+            <div class="brand brand-compact">
+                <svg class="brand-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+                <span>MedTrack<small>Medizintechnik-Ortung</small></span>
+            </div>
+
+            <h2>Anmeldung</h2>
+
+            <p class="login-description">
+                Bitte melde dich mit deinem MedTrack-Konto an.
+            </p>
+
+            <div class="field">
+                <label for="username">Benutzername</label>
+                <div class="input-wrap">
+                    <svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>
+                    <input type="text" id="username" name="username" autocomplete="username" placeholder="z. B. admin" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="password">Passwort</label>
+                <div class="input-wrap">
+                    <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
+                    <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Passwort" required>
+                </div>
+            </div>
+
+            <button type="submit" id="loginButton" class="btn btn-primary btn-block">
                 Anmelden
             </button>
 
-            <p id="loginError" class="login-error"></p>
+            <p id="loginError" class="form-error" role="alert"></p>
+
+            <p class="login-note">
+                <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+                Zugang nur für autorisiertes Personal.
+            </p>
 
         </form>
 
-    </div>
+    </section>
 
 </div>
 
@@ -72,42 +155,40 @@
      MEDTRACK APP
 ========================= -->
 
-<div id="app" class="app hidden">
+<div id="app" class="app" hidden>
 
     <!-- HEADER -->
 
-    <header>
+    <header class="topbar">
 
-        <div class="logo">
-
-            <div class="logo-icon">
-                M
-            </div>
-
-            <span>
-                MedTrack
-            </span>
-
+        <div class="brand">
+            <svg class="brand-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+            <span>MedTrack<small>Medizintechnik-Ortung</small></span>
         </div>
 
+        <div class="context">
+            <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+            <span id="contextText">–</span>
+        </div>
 
-        <div class="header-right">
+        <div class="topbar-right">
 
-            <div class="connection">
-
-                <div class="online"></div>
-
-                <span>
-                    ESP32 System Online
-                </span>
-
+            <div id="systemStatus" class="status-pill off" role="status">
+                <span class="dot"></span>
+                <span id="systemStatusText">Verbinde …</span>
             </div>
 
-            <button
-                class="logout-button"
-                onclick="logout()"
-            >
-                Abmelden
+            <div class="user-chip">
+                <span id="userAvatar" class="avatar">–</span>
+                <span class="user-text">
+                    <strong id="userName">–</strong>
+                    <small id="userRole"></small>
+                </span>
+            </div>
+
+            <button id="logoutButton" class="btn btn-ghost" type="button" title="Abmelden">
+                <svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>
+                <span class="btn-text">Abmelden</span>
             </button>
 
         </div>
@@ -117,381 +198,279 @@
 
     <!-- HAUPTBEREICH -->
 
-    <main>
+    <main class="page">
 
-        <div class="title">
+        <div class="page-head">
 
-            <h1>
-                Indoor Equipment Tracking
-            </h1>
+            <div>
+                <h1>Geräteübersicht</h1>
+                <p>Live-Ortung mobiler Medizingeräte über die BLE-Signalstärke (RSSI)</p>
+            </div>
 
-            <p>
-                Ortung medizinischer Geräte mittels BLE, RSSI und
-                positionsbasierter Auswertung
+            <p class="updated">
+                <span class="live-dot"></span>
+                Aktualisiert <span id="lastUpdate">–</span>
             </p>
 
         </div>
 
 
+        <!-- KENNZAHLEN -->
+
+        <section class="kpis" aria-label="Kennzahlen">
+
+            <article class="kpi">
+                <span class="kpi-icon tone-primary"><svg class="icon" aria-hidden="true"><use href="#i-case"/></svg></span>
+                <div>
+                    <p class="kpi-value" id="kpiTotal">–</p>
+                    <p class="kpi-label">Geräte gesamt</p>
+                </div>
+            </article>
+
+            <article class="kpi">
+                <span class="kpi-icon tone-ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+                <div>
+                    <p class="kpi-value" id="kpiAvailable">–</p>
+                    <p class="kpi-label">Verfügbar</p>
+                </div>
+            </article>
+
+            <article class="kpi">
+                <span class="kpi-icon tone-warn"><svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg></span>
+                <div>
+                    <p class="kpi-value" id="kpiBorrowed">–</p>
+                    <p class="kpi-label">Ausgeliehen</p>
+                </div>
+            </article>
+
+            <article class="kpi">
+                <span class="kpi-icon tone-off"><svg class="icon" aria-hidden="true"><use href="#i-nosignal"/></svg></span>
+                <div>
+                    <p class="kpi-value" id="kpiNoSignal">–</p>
+                    <p class="kpi-label">Kein Signal</p>
+                </div>
+            </article>
+
+        </section>
+
+
         <div class="layout">
 
-
             <!-- =========================
-                 LINKER BEREICH
+                 LAGEPLAN
             ========================== -->
 
-            <div class="card">
+            <section class="card map-card" id="mapCard">
 
-                <div class="card-header">
-
+                <div class="card-head">
                     <h2>
-                        Raum 01
+                        <svg class="icon" aria-hidden="true"><use href="#i-map"/></svg>
+                        <span>Lageplan <span id="roomName"></span></span>
                     </h2>
-
-                    <div class="room-size">
-                        12 m × 11 m
-                    </div>
-
+                    <span class="card-sub" id="roomSize"></span>
                 </div>
 
+                <div class="map-wrap">
+                    <svg id="floorplan" class="floorplan" role="group" aria-label="Lageplan mit Sensoren und Geräten"></svg>
+                </div>
 
-                <div class="room-wrapper">
+                <ul class="legend">
+                    <li><span class="lg lg-sensor"></span>ESP32-Sensor</li>
+                    <li><span class="lg lg-dot ok"></span>Verfügbar</li>
+                    <li><span class="lg lg-dot warn"></span>Ausgeliehen</li>
+                    <li><span class="lg lg-dot danger"></span>Wartung</li>
+                    <li><span class="lg lg-dot off"></span>Kein Signal</li>
+                    <li><span class="lg lg-range"></span>Messradius A / B / C</li>
+                </ul>
 
-                    <div class="room">
-
-
-                        <!-- X-ACHSE -->
-
-                        <div class="x-axis"></div>
-
-                        <span class="axis-number x0">
-                            0 m
-                        </span>
-
-                        <span class="axis-number x6">
-                            6 m
-                        </span>
-
-                        <span class="axis-number x12">
-                            12 m
-                        </span>
-
-                        <span class="x-label">
-                            X →
-                        </span>
+            </section>
 
 
-                        <!-- Y-ACHSE -->
+            <div class="side">
 
-                        <div class="y-axis"></div>
+                <!-- =========================
+                     GERÄTELISTE
+                ========================== -->
 
-                        <span class="axis-number y0">
-                            0 m
-                        </span>
+                <section class="card list-card">
 
-                        <span class="axis-number y5">
-                            5 m
-                        </span>
+                    <div class="card-head">
+                        <h2>
+                            <svg class="icon" aria-hidden="true"><use href="#i-list"/></svg>
+                            Geräte
+                        </h2>
+                        <span class="card-sub" id="listCount"></span>
+                    </div>
 
-                        <span class="axis-number y11">
-                            11 m
-                        </span>
+                    <div class="list-tools">
 
-                        <span class="y-label">
-                            Y ↑
-                        </span>
+                        <label class="search">
+                            <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+                            <input id="search" type="search" placeholder="Gerät, Typ oder Tag suchen …" aria-label="Geräte durchsuchen">
+                        </label>
+
+                        <div class="chips" role="group" aria-label="Geräte filtern">
+                            <button type="button" class="chip" data-filter="all" aria-pressed="true">Alle</button>
+                            <button type="button" class="chip" data-filter="available" aria-pressed="false">Verfügbar</button>
+                            <button type="button" class="chip" data-filter="borrowed" aria-pressed="false">Ausgeliehen</button>
+                            <button type="button" class="chip" data-filter="nosignal" aria-pressed="false">Kein Signal</button>
+                        </div>
+
+                    </div>
+
+                    <ul id="deviceList" class="device-list"></ul>
+
+                </section>
 
 
-                        <!-- SENSOR A -->
+                <!-- =========================
+                     DETAILS
+                ========================== -->
 
-                        <div class="sensor sensor-a">
+                <section class="card detail-card">
 
-                            A
+                    <p id="detailEmpty" class="empty">Kein Gerät ausgewählt.</p>
 
-                            <div class="sensor-label">
-                                ESP32 A
+                    <div id="detailBody" hidden>
+
+                        <div class="detail-head">
+                            <span id="dIcon" class="device-icon device-icon-lg"></span>
+                            <div class="detail-title">
+                                <h2 id="dName"></h2>
+                                <p id="dType"></p>
+                            </div>
+                            <span id="dBadge" class="badge"></span>
+                        </div>
+
+                        <dl class="facts">
+                            <div>
+                                <dt>Standort</dt>
+                                <dd id="dLocation"></dd>
+                            </div>
+                            <div>
+                                <dt>Position</dt>
+                                <dd id="dPosition" class="mono"></dd>
+                            </div>
+                            <div>
+                                <dt>Zuletzt erkannt</dt>
+                                <dd id="dSeen"></dd>
+                            </div>
+                            <div>
+                                <dt>Verfügbar</dt>
+                                <dd id="dAvailable"></dd>
+                            </div>
+                            <div id="dBorrowedRow" hidden>
+                                <dt>Ausgeliehen von</dt>
+                                <dd id="dBorrowed"></dd>
+                            </div>
+                        </dl>
+
+
+                        <!-- Signalwerte im Stil eines Patientenmonitors -->
+
+                        <div id="vitals" class="vitals">
+
+                            <div class="vitals-head">
+                                <span>Signalmonitor</span>
+                                <span id="vitalsState" class="vitals-state">LIVE</span>
+                            </div>
+
+                            <div class="vital">
+                                <span class="vital-label">RSSI A</span>
+                                <span class="vital-value"><span id="vRssiA">–</span><small>dBm</small></span>
+                            </div>
+
+                            <div class="vital">
+                                <span class="vital-label">RSSI B</span>
+                                <span class="vital-value"><span id="vRssiB">–</span><small>dBm</small></span>
+                            </div>
+
+                            <div class="vital">
+                                <span class="vital-label">RSSI C</span>
+                                <span class="vital-value"><span id="vRssiC">–</span><small>dBm</small></span>
+                            </div>
+
+                            <div class="vital vital-distance">
+                                <span class="vital-label">Distanz A</span>
+                                <span class="vital-value"><span id="vDistA">–</span><small>m</small></span>
+                            </div>
+
+                            <div class="vital vital-distance">
+                                <span class="vital-label">Distanz B</span>
+                                <span class="vital-value"><span id="vDistB">–</span><small>m</small></span>
+                            </div>
+
+                            <div class="vital vital-distance">
+                                <span class="vital-label">Distanz C</span>
+                                <span class="vital-value"><span id="vDistC">–</span><small>m</small></span>
                             </div>
 
                         </div>
 
 
-                        <!-- SENSOR B -->
+                        <div class="detail-actions">
 
-                        <div class="sensor sensor-b">
+                            <button id="borrowButton" class="btn btn-primary" type="button">
+                                <svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg>
+                                <span id="borrowLabel">Ausleihen</span>
+                            </button>
 
-                            B
-
-                            <div class="sensor-label">
-                                ESP32 B
-                            </div>
-
-                        </div>
-
-
-                        <!-- RADIUS -->
-
-                        <div
-                            id="radius"
-                            class="radius">
-                        </div>
-
-
-                        <!-- GERÄT 1 -->
-
-                        <div
-                            id="device1"
-                            class="device selected"
-                            style="left:61%; top:48%;"
-                            onclick="selectDevice(0)"
-                        >
-
-                            <div class="device-label">
-                                EKG #01
-                            </div>
+                            <button id="locateButton" class="btn btn-secondary" type="button">
+                                <svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>
+                                Auf Plan zeigen
+                            </button>
 
                         </div>
 
-
-                        <!-- GERÄT 2 -->
-
-                        <div
-                            id="device2"
-                            class="device"
-                            style="left:78%; top:70%;"
-                            onclick="selectDevice(1)"
-                        >
-
-                            <div class="device-label">
-                                Pumpe #02
-                            </div>
-
-                        </div>
+                        <p id="actionMessage" class="action-message" role="status"></p>
 
                     </div>
 
-                </div>
-
-
-                <!-- LEGENDE -->
-
-                <div class="legend">
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot sensor-dot"></div>
-
-                        BLE Sensor
-
-                    </div>
-
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot device-dot"></div>
-
-                        Gerät
-
-                    </div>
-
-
-                    <div class="legend-item">
-
-                        <div class="legend-dot selected-dot"></div>
-
-                        ausgewählt
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================
-                 RECHTER BEREICH
-            ========================== -->
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <h2>
-                        Geräte
-                    </h2>
-
-                </div>
-
-
-                <!-- GERÄTELISTE -->
-
-                <div class="device-list">
-
-
-                    <div
-                        class="device-item selected"
-                        id="item0"
-                        onclick="selectDevice(0)"
-                    >
-
-                        <div class="device-name">
-                            EKG #01
-                        </div>
-
-                        <div class="device-type">
-                            EKG-Gerät
-                        </div>
-
-                        <div class="status">
-                            ● Online
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="device-item"
-                        id="item1"
-                        onclick="selectDevice(1)"
-                    >
-
-                        <div class="device-name">
-                            Pumpe #02
-                        </div>
-
-                        <div class="device-type">
-                            Infusionspumpe
-                        </div>
-
-                        <div class="status">
-                            ● Online
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- DETAILS -->
-
-                <div class="details">
-
-                    <h2>
-                        Berechnete Position
-                    </h2>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            X-Position
-                        </span>
-
-                        <span id="x">
-                            7.32 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Y-Position
-                        </span>
-
-                        <span id="y">
-                            5.28 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            RSSI Sensor A
-                        </span>
-
-                        <span id="rssiA">
-                            -58 dBm
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            RSSI Sensor B
-                        </span>
-
-                        <span id="rssiB">
-                            -69 dBm
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Entfernung A
-                        </span>
-
-                        <span id="distanceA">
-                            4.1 m
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span>
-                            Entfernung B
-                        </span>
-
-                        <span id="distanceB">
-                            6.3 m
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- GENAUIGKEIT -->
-
-                <div class="accuracy">
-
-                    <div class="accuracy-title">
-                        Aktuelle Messgenauigkeit
-                    </div>
-
-                    <div
-                        class="accuracy-value"
-                        id="accuracy"
-                    >
-                        Testbetrieb
-                    </div>
-
-                </div>
-
-
-                <!-- BUTTON -->
-
-                <button
-                    class="button"
-                    onclick="locateDevice()"
-                >
-                    Gerät lokalisieren
-                </button>
+                </section>
 
             </div>
 
         </div>
 
+
+        <!-- =========================
+             VERLAUF
+        ========================== -->
+
+        <section class="card history-card">
+
+            <div class="card-head">
+                <h2>
+                    <svg class="icon" aria-hidden="true"><use href="#i-history"/></svg>
+                    Letzte Aktivitäten
+                </h2>
+                <span class="card-sub">Ausleihen und Rückgaben</span>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Zeitpunkt</th>
+                            <th>Gerät</th>
+                            <th>Aktion</th>
+                            <th>Benutzer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr><td colspan="4" class="empty">Wird geladen …</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
     </main>
+
+
+    <footer class="footer">
+        MedTrack · HTL Krems 26/27 · Prototyp – kein zertifiziertes Medizinprodukt
+    </footer>
 
 </div>
 
