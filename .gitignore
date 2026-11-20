@@ -1,0 +1,9 @@
+# Office-Sperrdateien (entstehen, solange eine Datei in Word/Excel/PowerPoint offen ist)
+~$*
+
+# Persönliche Editor-Einstellungen (enthalten Pfade, die auf jedem Rechner anders sind)
+.vscode/
+
+# Windows
+Thumbs.db
+desktop.ini
